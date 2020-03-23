@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css</title>
+            <style type="text/css">
+                                body{height:1024px;}
+                .mother{padding:50px;}
+                                .son{background-color: green;height: 200px}
+                                .mother-hover{border:solid 20px red;padding:30px;}
+            </style>
+    </head>
+<body>
+
+<div class="mother">
+    <div class="son"></div>
+</div>
+
+
+
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="text/javascript">
+    $('.mother').mouseenter(function(){
+        $(this).addClass('mother-hover')
+    });
+    $('.mother').mouseleave(function(){
+        $(this).removeClass('mother-hover')
+    });
+    </script>
+</body>
+</html>

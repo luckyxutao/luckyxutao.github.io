@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="csrf,安全,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="cookie 和 token 都存放在 header 中，为什么不会劫持 token？ 首先token不是防止XSS的，而是为了防止CSRF的； CSRF攻击的原因是浏览器会自动带上cookie，而浏览器不会自动在header或url里带上token">
+<meta name="keywords" content="csrf,安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="csrf攻击与防御">
+<meta property="og:url" content="http://yoursite.com/2019/11/24/csrf攻击与防御/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="cookie 和 token 都存放在 header 中，为什么不会劫持 token？ 首先token不是防止XSS的，而是为了防止CSRF的； CSRF攻击的原因是浏览器会自动带上cookie，而浏览器不会自动在header或url里带上token">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-20T10:43:34.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="csrf攻击与防御">
+<meta name="twitter:description" content="cookie 和 token 都存放在 header 中，为什么不会劫持 token？ 首先token不是防止XSS的，而是为了防止CSRF的； CSRF攻击的原因是浏览器会自动带上cookie，而浏览器不会自动在header或url里带上token">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/24/csrf攻击与防御/">
+
+
+
+
+
+  <title>csrf攻击与防御 | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/24/csrf攻击与防御/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">csrf攻击与防御</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-24T15:34:32+08:00">
+                2019-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="cookie-和-token-都存放在-header-中，为什么不会劫持-token？"><a href="#cookie-和-token-都存放在-header-中，为什么不会劫持-token？" class="headerlink" title="cookie 和 token 都存放在 header 中，为什么不会劫持 token？"></a>cookie 和 token 都存放在 header 中，为什么不会劫持 token？</h3><ul>
+<li>首先token不是防止XSS的，而是为了防止CSRF的；</li>
+<li>CSRF攻击的原因是浏览器会自动带上cookie，而浏览器<code>不会自动</code>在<code>header或url里</code>带上token<a id="more"></a>
+</li>
+</ul>
+<h3 id="CSRF攻击是什么"><a href="#CSRF攻击是什么" class="headerlink" title="CSRF攻击是什么"></a>CSRF攻击是什么</h3><p>CSRF是跨站请求伪造的缩写，也被称为XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。<br>跟跨网站脚本（XSS）相比，XSS利用的是用户对指定网站的信任，CSRF利用的是网站对用户网页浏览器的信任。<br>因为<code>CSRF攻击利用的是冲着浏览器分不清发起请求是不是真正的用户本人</code>。，也就是说，简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。</p>
+<h3 id="最简单的CSRF攻击"><a href="#最简单的CSRF攻击" class="headerlink" title="最简单的CSRF攻击"></a>最简单的CSRF攻击</h3><ul>
+<li>用户Alice登录和访问某银行网站A，保留cookie。</li>
+<li>Alice被某些信息诱导访问危险网站B。</li>
+<li><p>危险网站B上有一个img标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://www.examplebank.com/account=Alice&amp;amount=1000&amp;payfor=Badman"</span> &gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这个标签的src不指向一张图片，而是一个http请求，这个请求向银行要求将Alice的1000元转给Badman，由于Alice的浏览器上有cookie，这样浏览器发出的这个请求就能得到响应执行。<br>这样Alice的钱就被偷了。</p>
+</li>
+</ul>
+<h3 id="CSRF攻击的对象与防范思路"><a href="#CSRF攻击的对象与防范思路" class="headerlink" title="CSRF攻击的对象与防范思路"></a>CSRF攻击的对象与防范思路</h3><p><code>保护的关键，是 在请求中放入黑客所不能伪造的信息</code><br>仅仅靠发起CSRF攻击的话，黑客只能借助受害者的cookie骗取服务器的信任，但是黑客并不能凭借拿到cookie，也看不到 cookie的内容。另外，对于服务器返回的结果，由于浏览器同源策略的限制，黑客也无法进行解析。<br>这就告诉我们，我们要保护的对象是那些可以直接产生数据改变的服务，而对于读取数据的服务，则不需要进行CSRF的保护。</p>
+<ul>
+<li>验证HTTP Referer<br>在HTTP请求头中有一个字段叫Referer，它记录了请求的来源地址。 服务器需要做的是验证这个来源地址是否合法，如果是来自一些不受信任的网站，则拒绝响应。<ul>
+<li>兼容性不好：每个浏览器对于Referer的具体实现可能有差别。</li>
+<li>并不一定可靠：在一些古老的垃圾浏览器中，Referer可以被篡改。</li>
+</ul>
+</li>
+<li>csrfToken<ul>
+<li>服务器随机产生token（比如把cookie hash化生成），存在session中，放在cookie中或者以ajax的形式交给前端。</li>
+<li>前端发请求的时候，解析cookie中的token，放到请求url里或者请求头中。</li>
+<li>服务器验证token，由于黑客无法得到或者伪造token(<code>无法放到请求url里或者请求头中</code>)，所以能防范csrf</li>
+</ul>
+</li>
+</ul>
+<h3 id="相关引用"><a href="#相关引用" class="headerlink" title="相关引用"></a>相关引用</h3><p><a href="https://zhuanlan.zhihu.com/p/37293032?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=40142471430144" target="_blank" rel="noopener"><code>对于跨站伪造请求（CSRF）的理解和总结</code></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/csrf/" rel="tag"># csrf</a>
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/20/xss/" rel="next" title="xss攻略与防御">
+                <i class="fa fa-chevron-left"></i> xss攻略与防御
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/24/https/" rel="prev" title="深入理解https">
+                深入理解https <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie-和-token-都存放在-header-中，为什么不会劫持-token？"><span class="nav-number">1.</span> <span class="nav-text">cookie 和 token 都存放在 header 中，为什么不会劫持 token？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF攻击是什么"><span class="nav-number">2.</span> <span class="nav-text">CSRF攻击是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最简单的CSRF攻击"><span class="nav-number">3.</span> <span class="nav-text">最简单的CSRF攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF攻击的对象与防范思路"><span class="nav-number">4.</span> <span class="nav-text">CSRF攻击的对象与防范思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关引用"><span class="nav-number">5.</span> <span class="nav-text">相关引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

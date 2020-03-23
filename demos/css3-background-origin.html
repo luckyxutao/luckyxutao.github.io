@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css3</title>
+        <style type="text/css">
+                .container{
+                    border:solid 10px red;
+                    padding:10px;
+                    margin: 10 auto;
+                    width : 250px;
+                    height: 250px;
+                    background: url(/assets/blogImg/tuan.jpg) 0 0 no-repeat;
+                }
+                .content-box{
+                    background-origin: content-box;
+                }
+                .padding-box{
+                    background-origin: padding-box;
+                }
+                .border-box{
+                    background-origin: border-box;
+                }
+                p{text-align: center;}
+        </style>
+    </head>
+<body>
+    <p>不包含padding区域(content-box)</p>
+    <div class="container content-box"></div>
+    <p>包含padding区域(padding-box)(默认值)</p>
+    <div class="container padding-box"></div>
+    <p>包含border及padding区域(border-box)</p>
+    <div class="container border-box"></div>
+</body>
+</html>

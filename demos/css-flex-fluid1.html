@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>流式布局</title>
+        <style type="text/css">
+            body{padding:0;margin:0;}
+            .parent {
+              width: 100%;
+              background-color: black;
+              display: flex;
+              flex-flow: row wrap;
+              align-content: flex-start;
+            }
+
+            .child {
+              flex: 0 0 25%;
+            }
+            .child .content{
+                  box-sizing: border-box;
+                  background-color: white;
+                  flex: 0 0 25%;
+                  height: 50px;
+                  border: 1px solid red;
+            }
+        </style>
+    </head>
+<body>
+<div>
+    显示条目永远是4个(无论多宽), 缺点当宽度过小时保持4个可能会导致文本展示不全，会隐藏……
+</div>
+<div class="parent">
+    <div class="child">
+        <div class="content"></div>
+    </div>
+    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>
+</div>
+</body>
+</html>

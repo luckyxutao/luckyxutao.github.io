@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css3</title>
+        <style type="text/css">
+            @keyframes stand{
+                from{
+                    transform: rotate(0)
+                }
+                to {
+                    transform: rotate(360deg)
+                }
+            }
+            .sprite {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+                margin: 3em auto;
+                -webkit-animation: stand 2s linear infinite;
+                animation: stand 2s linear infinite;
+            }
+            .sprite:hover{
+                animation-play-state: paused;
+            }
+        </style>
+    </head>
+<body>
+通过animation-play-state: paused;来控制动画状态
+<div class="sprite"></div>
+</body>
+</html>

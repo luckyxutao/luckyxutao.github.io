@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="templdate method,模板方法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、概述在面向对象开发过程中，通常我们会遇到这样的一个问题：我们知道一个算法所需的关键步骤，并确定了这些步骤的执行顺序。但是某些步骤的具体实现是未知的，或者说某些步骤的实现与具体的环境相关。例子1：银行业务办理流程在银行办理业务时，一般都包含几个基本固定步骤:取号排队-&amp;gt;办理具体业务-&amp;gt;对银行工作人员进行评分。取号、排队和对银行工作人员进行评分业务逻辑是一样的。但是办理具体业务是个不相">
+<meta name="keywords" content="templdate method,模板方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模板方法">
+<meta property="og:url" content="http://yoursite.com/2014/11/12/模板方法/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="一、概述在面向对象开发过程中，通常我们会遇到这样的一个问题：我们知道一个算法所需的关键步骤，并确定了这些步骤的执行顺序。但是某些步骤的具体实现是未知的，或者说某些步骤的实现与具体的环境相关。例子1：银行业务办理流程在银行办理业务时，一般都包含几个基本固定步骤:取号排队-&amp;gt;办理具体业务-&amp;gt;对银行工作人员进行评分。取号、排队和对银行工作人员进行评分业务逻辑是一样的。但是办理具体业务是个不相">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yspe2371e4aa7697989.yunshipei.cn/dHlwZT1mdyZzaXplPTY0MCZzcmM9YUhSMGNDVXpRU1V5UmlVeVJtMTVMbU56Wkc0dWJtVjBKVEpHZFhCc2IyRmtjeVV5UmpJd01USXdOU1V5UmpFMEpUSkdNVE16TmprMk5UQTVNMTh4TURRNExtcHdadz09">
+<meta property="og:updated_time" content="2020-03-20T10:43:34.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模板方法">
+<meta name="twitter:description" content="一、概述在面向对象开发过程中，通常我们会遇到这样的一个问题：我们知道一个算法所需的关键步骤，并确定了这些步骤的执行顺序。但是某些步骤的具体实现是未知的，或者说某些步骤的实现与具体的环境相关。例子1：银行业务办理流程在银行办理业务时，一般都包含几个基本固定步骤:取号排队-&amp;gt;办理具体业务-&amp;gt;对银行工作人员进行评分。取号、排队和对银行工作人员进行评分业务逻辑是一样的。但是办理具体业务是个不相">
+<meta name="twitter:image" content="http://yspe2371e4aa7697989.yunshipei.cn/dHlwZT1mdyZzaXplPTY0MCZzcmM9YUhSMGNDVXpRU1V5UmlVeVJtMTVMbU56Wkc0dWJtVjBKVEpHZFhCc2IyRmtjeVV5UmpJd01USXdOU1V5UmpFMEpUSkdNVE16TmprMk5UQTVNMTh4TURRNExtcHdadz09">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/11/12/模板方法/">
+
+
+
+
+
+  <title>模板方法 | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/12/模板方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">模板方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-12T17:45:36+08:00">
+                2014-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>在面向对象开发过程中，通常我们会遇到这样的一个问题：我们知道一个算法所需的关键步骤，并确定了这些步骤的执行顺序。但是某些步骤的具体实现是未知的，或者说某些步骤的实现与具体的环境相关。<br><strong>例子1：银行业务办理流程</strong><br>在银行办理业务时，一般都包含几个基本固定步骤:<br><code>取号排队-&gt;办理具体业务-&gt;对银行工作人员进行评分。</code><br>取号、排队和对银行工作人员进行评分业务逻辑是一样的。但是办理具体业务是个不相同的，具体业务可能取款、存款或者转账。<br><a id="more"></a></p>
+<h2 id="二、问题"><a href="#二、问题" class="headerlink" title="二、问题"></a>二、问题</h2><p>如何保证架构逻辑的正常执行，而不被子类破坏 ？</p>
+<h2 id="三、解决方案"><a href="#三、解决方案" class="headerlink" title="三、解决方案"></a>三、解决方案</h2><p>模板方法：<strong>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</strong>（Template Method Pattern:Definethe skeleton of an algorithm in an operation,deferring some steps tosubclasses.Template Methodletssubclasses redefine certain steps of an algorithmwithoutchanging the algorithm’s structure. ）</p>
+<p>1） 模板方法模式是基于继承的代码复用基本技术，模板方法模式的结构和用法也是面向对象设计的核心之一。在模板方法模式中，可以将相同的代码放在父类中，而将不同的方法实现放在不同的子类中。<br>2） 在模板方法模式中，我们需要准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来让子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现，这就是模板方法模式的用意。模板方法模式体现了面向对象的诸多重要思想，是一种使用频率较高的模式。</p>
+<h2 id="四、适用场景"><a href="#四、适用场景" class="headerlink" title="四、适用场景"></a>四、适用场景</h2><p>1） 一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。<br>2）各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。首先识别现有代码中的不同之处，并且将不同之处分离为新的操作。最后，用一个调用这些新的操作的模板方法来替换这些不同的代码。<br>3）控制子类扩展。模板方法只在特定点调用“ hook”操作 ，这样就只允许在这些点进行扩展。</p>
+<h2 id="五、类图"><a href="#五、类图" class="headerlink" title="五、类图"></a>五、类图</h2><p><img src="http://yspe2371e4aa7697989.yunshipei.cn/dHlwZT1mdyZzaXplPTY0MCZzcmM9YUhSMGNDVXpRU1V5UmlVeVJtMTVMbU56Wkc0dWJtVjBKVEpHZFhCc2IyRmtjeVV5UmpJd01USXdOU1V5UmpFMEpUSkdNVE16TmprMk5UQTVNMTh4TURRNExtcHdadz09" alt="tool-manager"></p>
+<h2 id="六、模式的组成"><a href="#六、模式的组成" class="headerlink" title="六、模式的组成"></a>六、模式的组成</h2><p><code>抽象类（AbstractClass）:</code> 定义抽象的原语操作（primitive operation） ，具体的子类将重定义它们以实现一个算法， 实现一个模板方法,定义一个算法的骨架。该模板方法不仅调用原语操作，也调用定义</p>
+<p><code>具体子类 （ConcreteClass）:</code>  实现原语操作以完成算法中与特定子类相关的步骤。</p>
+<h2 id="七、效果"><a href="#七、效果" class="headerlink" title="七、效果"></a>七、效果</h2><p><strong>模板方法模式的优点：</strong></p>
+<p>1)  模板方法模式在一个类中形式化地定义算法，而由它的子类实现细节的处理。<br>2)  模板方法是一种代码复用的基本技术。它们在类库中尤为重要，它们提取了类库中的公共行为。<br>3)  模板方法模式导致一种反向的控制结构，这种结构有时被称为“好莱坞法则” ，即“别找我们，,我们找你”通过一个父类调用其子类的操作(而不是相反的子类调用父类)，通过对子类的扩展增加新的行为，符合“开闭原则”</p>
+<p><strong>模板方法模式的缺点:</strong></p>
+<p>每个不同的实现都需要定义一个子类，这会导致类的个数增加，系统更加庞大，设计也更加抽象，但是更加符合“单一职责原则”，使得类的内聚性得以提高。</p>
+<h2 id="八、实现"><a href="#八、实现" class="headerlink" title="八、实现"></a>八、实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//超类（父类）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperClass</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>._msg = msg;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//hook method</span></span><br><span class="line">SuperClass.prototype.beforedogreet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// body...</span></span><br><span class="line">&#125;;</span><br><span class="line">SuperClass.prototype.doGreet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.beforedogreet();</span><br><span class="line">	<span class="keyword">var</span> m = <span class="keyword">this</span>.makeGreetMsg();</span><br><span class="line">	<span class="built_in">console</span>.log(m);</span><br><span class="line">&#125;;</span><br><span class="line">SuperClass.prototype.makeGreetMsg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'super : '</span> + <span class="keyword">this</span>._msg;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//子类(也叫派生类)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ChildClass</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">goog.inherits(ChildClass, SuperClass);</span><br><span class="line"><span class="comment">//@override</span></span><br><span class="line">ChildClass.prototype.makeGreetMsg = <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//在父类方法已有逻辑上进行扩展。省去重新写一遍了</span></span><br><span class="line">	<span class="keyword">var</span> msg = ChildClass.superClass_.makeGreetMsg.call(<span class="keyword">this</span>, msg);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'altered by childclass '</span> + msg;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//子类通过父类的构子(hook)方法，进行自定义 扩展</span></span><br><span class="line">ChildClass.prototype.beforedogreet = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'before do greet'</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//继承的实现方法</span></span><br><span class="line"><span class="keyword">var</span> goog = &#123;&#125;;</span><br><span class="line">goog.inherits = <span class="function"><span class="keyword">function</span>(<span class="params">childCtor, parentCtor</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/** <span class="doctag">@constructor </span>*/</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">tempCtor</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  tempCtor.prototype = parentCtor.prototype;</span><br><span class="line">  childCtor.superClass_ = parentCtor.prototype;</span><br><span class="line">  childCtor.prototype = <span class="keyword">new</span> tempCtor();</span><br><span class="line">  <span class="comment">/** <span class="doctag">@override </span>*/</span></span><br><span class="line">  childCtor.prototype.constructor = childCtor;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="九、与其他相关模式"><a href="#九、与其他相关模式" class="headerlink" title="九、与其他相关模式"></a>九、与其他相关模式</h3><p>1）策略模式：模板方法使用继承来改变算法的一部分。 Strategy使用委托来改变整个算法。模板方法模式与策略模式的作用十分类似，有时可以用策略模式替代模板方法模式。模板方法模式通过继承来实现代码复用，而策略模式使用委托，把不确定的行为集中到一个接口中，并在主类委托这个接口。委托比继承具有更大的灵活性。<br>原文: <a href="http://blog.csdn.net/hguisu/article/details/7564039" target="_blank" rel="noopener">http://blog.csdn.net/hguisu/article/details/7564039</a><br>一个不错的ppt <a href="http://pan.baidu.com/s/1eQ5sfkQ" target="_blank" rel="noopener">http://pan.baidu.com/s/1eQ5sfkQ</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/templdate-method/" rel="tag"># templdate method</a>
+          
+            <a href="/tags/模板方法/" rel="tag"># 模板方法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/12/观察者模式/" rel="next" title="观察者模式">
+                <i class="fa fa-chevron-left"></i> 观察者模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/17/很赞的git教程/" rel="prev" title="一个非常不错的git教程">
+                一个非常不错的git教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、问题"><span class="nav-number">2.</span> <span class="nav-text">二、问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、解决方案"><span class="nav-number">3.</span> <span class="nav-text">三、解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、适用场景"><span class="nav-number">4.</span> <span class="nav-text">四、适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、类图"><span class="nav-number">5.</span> <span class="nav-text">五、类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、模式的组成"><span class="nav-number">6.</span> <span class="nav-text">六、模式的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、效果"><span class="nav-number">7.</span> <span class="nav-text">七、效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、实现"><span class="nav-number">8.</span> <span class="nav-text">八、实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#九、与其他相关模式"><span class="nav-number">8.1.</span> <span class="nav-text">九、与其他相关模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

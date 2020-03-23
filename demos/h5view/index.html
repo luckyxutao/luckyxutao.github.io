@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <link href="https://cdn.bootcss.com/video.js/6.7.3/video-js.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <!-- If you'd like to support IE8 -->
+  <script src="https://cdn.bootcss.com/video.js/6.7.3/video.js"></script>
+  <script src="https://cdn.bootcss.com/videojs-contrib-hls/5.12.2/videojs-contrib-hls.js"></script>
+  <style type="text/css">
+    dd{
+
+    }
+  </style>
+</head>
+
+<body>
+    <ul>
+      <li>
+        <dl>
+          <dt>m3uu8</dt>
+          <dd><a href="fullscreenApi.html">fullscreenApi测试</a></dd>
+          <dd>
+            <video x5-playsinline playsinline webkit-playsinline id="example-video" preload="auto" width="640" height="264" data-setup="{}" class="video-js vjs-default-skin" poster="MY_VIDEO_POSTER.jpg" controls>
+              <source src="http://vodlnr6niz5.vod.126.net/vodlnr6niz5/3VZnlxOQ_1305224172_shd.m3u8" type="application/x-mpegURL">
+            </video>
+            <script type="text/javascript">
+              // var player = videojs('example-video');
+              // player.play();
+            </script>
+          </dd>
+        </dl>
+        <dl>
+          <dt>mp4格式</dt>
+          <dd>
+            <video x5-playsinline playsinline webkit-playsinline id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+              <source src="http://vodlnr6niz5.vod.126.net/vodlnr6niz5/f2a4be47-3f1d-4ef5-9453-729e60680554.mp4" type="video/mp4">
+              <!-- <source src="MY_VIDEO.mp4" type='video/mp4'> -->
+              <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+              </p>
+            </video>
+          </dd>
+        </dl>
+      </li>
+      <li>
+          <div id="fullscreen">点击全屏</div>
+
+      </li>
+  </ul>
+  <script type="text/javascript">
+    var player = videojs('my-video');
+    document.getElementById('fullscreen').addEventListener('click',function(){
+      player.requestFullscreen();
+    })
+    player.on('ended',function(){
+      alert('结束了');
+      player.play();
+    })
+  </script>
+</body>
+</html>

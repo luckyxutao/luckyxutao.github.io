@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css3</title>
+        <style type="text/css">
+                .container{
+                    border:dotted 10px red;
+                    padding:10px;
+                    margin: 10 auto;
+                    width : 250px;
+                    height: 250px;
+                    background: transparent url(/assets/blogImg/tuan.jpg) 0 0 no-repeat;
+                    background-origin: border-box;
+                }
+                .content-box{
+                    background-clip: content-box;
+                }
+                .padding-box{
+                    background-clip: padding-box;
+                }
+                .border-box{
+                    background-clip: border-box;
+                }
+                .no-clip{
+                    background-clip: border-box;
+                }
+                p,h2{text-align: center;}
+        </style>
+    </head>
+<body>
+    <h2>以background-origin: border-box为基准</h2>
+    <p>从内容区域(content-box)裁剪</p>
+    <div class="container content-box"></div>
+    <p>从包含padding区域(padding-box)裁剪</p>
+    <div class="container padding-box"></div>
+    <p>以下两种情况效果是一样的</p>
+    <p>包含border及padding区域(border-box)</p>
+    <div class="container border-box"></div>
+    <p>noclip</p>
+    <div class="container no-clip"></div>
+</body>
+</html>

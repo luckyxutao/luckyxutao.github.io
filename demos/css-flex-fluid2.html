@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>流式布局2</title>
+        <style type="text/css">
+            body{padding:0;margin:0;}
+            .parent {
+              background-color: black;
+              display: flex;
+              flex-flow: row wrap;
+            }
+
+            .child {
+              height: 50px;
+
+              min-width:90px;
+              flex:1;
+            }
+            .child .content{
+              height: 50px;
+                
+                box-sizing: border-box;
+                background-color: white;
+                box-sizing: border-box;
+                border: 1px solid red;
+                height:100%;
+            }
+            .holder{
+                box-sizing: border-box;
+                flex:1;
+                min-width:90px;
+                height:0;
+            }
+        </style>
+    </head>
+<body>
+<div>
+    个数不是固定的，会根据宽度自适应，可以通过min-width来保证内容被显示出来
+</div>
+<div class="parent">
+    <div class="child">
+        <div class="content"></div>
+    </div>
+    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>    <div class="child">
+        <div class="content"></div>
+    </div>
+    <div class="holder"></div>
+    <div class="holder"></div>
+    <div class="holder"></div>
+    <div class="holder"></div>
+    <div class="holder"></div>
+</div>
+</body>
+</html>

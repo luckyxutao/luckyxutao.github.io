@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css3</title>
+        <style type="text/css">
+            @keyframes walker{
+                from{
+                    background-position: 0 0;
+                }
+                to {
+                    background-position: 0 -2400px;
+                }
+            }
+            @keyframes stand{
+                from{
+                    background-position: -400px 0;
+                }
+                to {
+                    background-position: -400px -1400px;
+                }
+            }
+            .sprite {
+                width: 380px;
+                height: 200px;
+                display: block;
+                background: transparent url(/assets/blogImg/tuna_sprite.png) center center no-repeat;
+                margin: 3em auto;
+                -webkit-animation: walker 1s steps(12) infinite;
+                animation: walker 1s steps(12) infinite;
+            }
+            .sec {
+                width: 398px;
+                height: 200px;
+                display: block;
+                background: transparent url(/assets/blogImg/tuna_sprite.png) center center no-repeat;
+                margin: 3em auto;
+                -webkit-animation: stand 1s steps(7) infinite;
+                animation: stand 1s steps(7) infinite;
+            }
+        </style>
+    </head>
+<body>
+<div class="sprite"></div>
+<div class="sec"></div>
+</body>
+</html>

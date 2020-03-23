@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="router,react,题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么要使用前端路由 代码解耦 React路由是一个构建在React之上的强大的路由库 使URL与网页上显示的数据保持同步。">
+<meta name="keywords" content="router,react,题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-router-ask">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/react-router-ask/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="为什么要使用前端路由 代码解耦 React路由是一个构建在React之上的强大的路由库 使URL与网页上显示的数据保持同步。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-23T04:06:03.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react-router-ask">
+<meta name="twitter:description" content="为什么要使用前端路由 代码解耦 React路由是一个构建在React之上的强大的路由库 使URL与网页上显示的数据保持同步。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/23/react-router-ask/">
+
+
+
+
+
+  <title>react-router-ask | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/react-router-ask/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">react-router-ask</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-23T11:13:43+08:00">
+                2020-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="为什么要使用前端路由"><a href="#为什么要使用前端路由" class="headerlink" title="为什么要使用前端路由"></a>为什么要使用前端路由</h3><ul>
+<li>代码解耦</li>
+<li>React路由是一个构建在React之上的强大的路由库</li>
+<li>使URL与网页上显示的数据保持同步。</li>
+</ul>
+<a id="more"></a>
+<h3 id="为什么要使用Switch组件？"><a href="#为什么要使用Switch组件？" class="headerlink" title="为什么要使用Switch组件？"></a>为什么要使用Switch组件？</h3><p>因为route默认的匹配原则是只要匹配上都会渲染，如果遇到非精确匹配同时包含了子路由的情况，则会将子、父路由都渲染出来，而Switch则保证只会有一个匹配</p>
+<h3 id="React-Router是如何配置的"><a href="#React-Router是如何配置的" class="headerlink" title="React-Router是如何配置的"></a>React-Router是如何配置的</h3><ul>
+<li>如果是BrowserHistory，则需要在服务端设置转发(fallback),hashHistory则不需要</li>
+<li>引入Browser或HashHistory as Router</li>
+<li>用Router将应用入口包裹起来</li>
+<li>React组件通过withRouter高阶函数来取到history及location信息</li>
+</ul>
+<h3 id="React-Router是如何代码分割的"><a href="#React-Router是如何代码分割的" class="headerlink" title="React-Router是如何代码分割的"></a>React-Router是如何代码分割的</h3><ul>
+<li>React-Router并不提供代码分割功能</li>
+<li>代码分割使用了DynamicImport（是一种规范，webpack默认支持）特性</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(<span class="string">'./math'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.default)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">import</span>(<span class="string">'./print'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">    res.default(<span class="string">'from print'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">/////////////////</span></span><br><span class="line">dist</span><br><span class="line">├── <span class="number">0.</span>bundle.js</span><br><span class="line">├── <span class="number">0.</span>bundle.js.map</span><br><span class="line">├── <span class="number">1.</span>bundle.js</span><br><span class="line">├── <span class="number">1.</span>bundle.js.map</span><br><span class="line">├── bundle.js</span><br><span class="line">├── bundle.js.map</span><br><span class="line">└── index.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HashRouter <span class="keyword">as</span> Router,Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AsyncComponent</span>(<span class="params">loadComponent,placeholder=<span class="string">'loading……'</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">AyncComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">        state = &#123;</span><br><span class="line">            Child:<span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">async</span> componentDidMount()&#123;</span><br><span class="line">            loadComponent().then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                    Child:res.default</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        render()&#123;</span><br><span class="line">            <span class="keyword">const</span> &#123; Child &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">            <span class="keyword">return</span> (</span><br><span class="line">                Child ? <span class="xml"><span class="tag">&lt;<span class="name">Child</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span></span> : placeholder</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Router&gt;</span><br><span class="line">            &lt;Route path=<span class="string">"/m1"</span> component=&#123;AsyncComponent(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">import</span>(<span class="string">'./pages/m1'</span>);</span><br><span class="line">            &#125;)&#125; /&gt;</span><br><span class="line">            &lt;Route path=<span class="string">"/m2"</span> component=&#123;AsyncComponent(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">import</span>(<span class="string">'./pages/m2'</span>);</span><br><span class="line">            &#125;)&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">ReactDOM.render(&lt;App /</span>&gt;, <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="React-Router路由都有哪些常用props"><a href="#React-Router路由都有哪些常用props" class="headerlink" title="React-Router路由都有哪些常用props"></a>React-Router路由都有哪些常用props</h3><ul>
+<li>常用props<br>  exact、path、children、component、render</li>
+<li>说明<br>  exact是否匹配子路由<br>  path 路径</li>
+<li>渲染规则及优先级<br>  match<pre><code>children(函数)-&gt;children（组件）-&gt; component-&gt;render-&gt;null
+</code></pre>  !match<pre><code>children(函数)-&gt;null    
+</code></pre></li>
+</ul>
+<h3 id="route匹配的原理是什么？"><a href="#route匹配的原理是什么？" class="headerlink" title="route匹配的原理是什么？"></a>route匹配的原理是什么？</h3><ul>
+<li>将route的path转换为regexp，路径pattern</li>
+<li>将当前location.pathname和路径pattern做比较</li>
+<li>匹配成功则渲染，否则null</li>
+</ul>
+<h3 id="React-Router怎么获取历史对象？"><a href="#React-Router怎么获取历史对象？" class="headerlink" title="React-Router怎么获取历史对象？"></a>React-Router怎么获取历史对象？</h3><p>通过<code>withRouter</code>, withRouter可以使子元素获取history对象以及距离最近Route的location及match信息</p>
+<h3 id="React-Router怎么获取URL的参数？"><a href="#React-Router怎么获取URL的参数？" class="headerlink" title="React-Router怎么获取URL的参数？"></a>React-Router怎么获取URL的参数？</h3><p>v3默认提供了，v4需要自己获取，可通过querystring</p>
+<h3 id="在history模式中push和replace有什么区别？"><a href="#在history模式中push和replace有什么区别？" class="headerlink" title="在history模式中push和replace有什么区别？"></a>在history模式中push和replace有什么区别？</h3><ul>
+<li>push是往history或路由栈里新增一个，路由栈会增加</li>
+<li>replace则是把当前路由替换为新的，路由栈长度不会增加</li>
+</ul>
+<h3 id="React-Router怎么设置重定向？"><a href="#React-Router怎么设置重定向？" class="headerlink" title="React-Router怎么设置重定向？"></a>React-Router怎么设置重定向？</h3><p> 可以设置到children上，也可以和其它route并列设置（Switch内)，一旦匹配上就会重定向，顺序上需要注意</p>
+<h3 id="React-Router-4中组件有几种类型？"><a href="#React-Router-4中组件有几种类型？" class="headerlink" title="React-Router 4中组件有几种类型？"></a>React-Router 4中<router>组件有几种类型？</router></h3><p>HashHistory、BrowserHistory</p>
+<h3 id="React-Router的实现原理是什么？"><a href="#React-Router的实现原理是什么？" class="headerlink" title="React-Router的实现原理是什么？"></a>React-Router的实现原理是什么？</h3><ul>
+<li>history库监听hash或history Api获取最新的pathname</li>
+<li>Router监听history库 location变化事件，有变化时会将最亲的的location通过context传给route，重新渲染route</li>
+<li>Route收到最新location,会将location和Route定义的path作对比，匹配上则渲染否则null</li>
+<li>withRouter 是收听距离最近上层的 match、location信息及history对象</li>
+</ul>
+<h3 id="React-Router-4的switch有什么用？"><a href="#React-Router-4的switch有什么用？" class="headerlink" title="React-Router 4的switch有什么用？"></a>React-Router 4的switch有什么用？</h3><p>渲染第一个匹配的路由或Redirect</p>
+<h3 id="React-Router的标签和标签有什么区别？"><a href="#React-Router的标签和标签有什么区别？" class="headerlink" title="React-Router的标签和标签有什么区别？"></a>React-Router的<link>标签和<a>标签有什么区别？</a></h3><ul>
+<li>A是普通的链接，这种方式会完全刷新应用，导致spa数据丢失</li>
+<li>Link是路由提供的导航、跳转方式，是通过history的push或replace触发的，不会丢失数据</li>
+</ul>
+<h3 id="React的路由和普通路由有什么区别？"><a href="#React的路由和普通路由有什么区别？" class="headerlink" title="React的路由和普通路由有什么区别？"></a>React的路由和普通路由有什么区别？</h3><ul>
+<li>普通路由是由后端控制的，切换路由时页面每次都会刷新，页面页数据也不共享</li>
+<li>React的路由是由前端控制的（基于hash或browserHistory)，页面切换不会真正刷新页面，各页面数据共享（spa)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/router/" rel="tag"># router</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/题/" rel="tag"># 题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/24/https/" rel="next" title="深入理解https">
+                <i class="fa fa-chevron-left"></i> 深入理解https
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用前端路由"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用前端路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用Switch组件？"><span class="nav-number">2.</span> <span class="nav-text">为什么要使用Switch组件？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router是如何配置的"><span class="nav-number">3.</span> <span class="nav-text">React-Router是如何配置的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router是如何代码分割的"><span class="nav-number">4.</span> <span class="nav-text">React-Router是如何代码分割的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router路由都有哪些常用props"><span class="nav-number">5.</span> <span class="nav-text">React-Router路由都有哪些常用props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#route匹配的原理是什么？"><span class="nav-number">6.</span> <span class="nav-text">route匹配的原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router怎么获取历史对象？"><span class="nav-number">7.</span> <span class="nav-text">React-Router怎么获取历史对象？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router怎么获取URL的参数？"><span class="nav-number">8.</span> <span class="nav-text">React-Router怎么获取URL的参数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在history模式中push和replace有什么区别？"><span class="nav-number">9.</span> <span class="nav-text">在history模式中push和replace有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router怎么设置重定向？"><span class="nav-number">10.</span> <span class="nav-text">React-Router怎么设置重定向？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router-4中组件有几种类型？"><span class="nav-number">11.</span> <span class="nav-text">React-Router 4中组件有几种类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router的实现原理是什么？"><span class="nav-number">12.</span> <span class="nav-text">React-Router的实现原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router-4的switch有什么用？"><span class="nav-number">13.</span> <span class="nav-text">React-Router 4的switch有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router的标签和标签有什么区别？"><span class="nav-number">14.</span> <span class="nav-text">React-Router的标签和标签有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React的路由和普通路由有什么区别？"><span class="nav-number">15.</span> <span class="nav-text">React的路由和普通路由有什么区别？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

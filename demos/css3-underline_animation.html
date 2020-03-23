@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>css3 loading效果</title>
+        <style type="text/css">
+            body{padding:0;margin:0;}
+            h1{
+                position: absolute;
+                overflow: hidden;
+                left:50%;
+                margin-left:-140px;
+                top:50px;
+                padding-bottom:15px;
+            }
+            a{
+                text-decoration:none;
+            }
+            a:hover:before{
+                left:0;
+                right:0;
+                -webkit-animation-name: hvr-pulse-grow;
+                animation-name: hvr-pulse-grow;
+                -webkit-animation-duration: .3s;
+                animation-duration: .3s;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+                -webkit-animation-direction: alternate;
+                animation-direction: alternate
+            }
+            a:before{
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 50%;
+                right: 50%;
+                bottom: 0;
+                background: rgba(24, 57, 175, 0.66);
+                height: 4px;
+                transition-property: left,right;
+                transition-duration: .3s;
+                transition-timing-function: ease-out; 
+            }
+
+            @-webkit-keyframes hvr-pulse-grow {
+                to {
+                    -webkit-transform: scale(1.1);
+                    transform: scale(1.1)
+                }
+            }
+
+            @keyframes hvr-pulse-grow {
+                to {
+                    -webkit-transform: scale(1.1);
+                    transform: scale(1.1)
+                }
+            }
+            .bsd{
+                text-align: center;
+            }
+        </style>
+    </head>
+<body>
+<div class="bsd">链接hover下划线动画示例</div>
+
+<h1 itemprop="name">
+    <a href="/2016/04/20/javascript闭包理解/" class="article-title">javascript闭包理解</a>
+</h1>
+</body>
+</html>

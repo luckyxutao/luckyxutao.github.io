@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        body{
+            padding:0;
+            margin:0;
+            height:5000px;
+        }
+        .a1,.a2{
+            background-color: red;
+            width:300px;
+            height:300px;
+        }
+        .mother{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+        }
+        .mod1,.mod2{
+            background-color:yellow;
+            position: relative;
+            height:500px;
+        }
+        .mod2{
+            background-color: green;
+        }
+        .mother2{
+            position: absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+
+        }
+        .a2{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width:50%;
+            height:30%;
+            padding:20px;
+            text-align:center;
+            background:#393;
+            color:#fff;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:center">高度、宽度尺寸不定，水平垂直居中方案</div>
+    <div class="mod1">
+        <div class="mother">
+            <div class="a1">垂直高度100%，与屏幕高度一致，垂直居中，不定高, flex-alignitems-justify-content 子元素高度100%也有体现</div>
+        </div>
+    </div>
+    <div class="mod2">
+        <div class="mother2">
+            <div class="a2">垂直高度100%，与屏幕高度一致，垂直居中，不定高translateY实现,子元素高度100%也有体现</div>
+        </div>
+    </div>
+
+</body>
+</html>
