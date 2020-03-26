@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三方库处理-externals防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。参见externals">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack常用优化">
+<meta property="og:url" content="http://yoursite.com/2020/03/26/webpack-optimize/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="第三方库处理-externals防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。参见externals">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-26T13:49:08.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack常用优化">
+<meta name="twitter:description" content="第三方库处理-externals防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。参见externals">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/26/webpack-optimize/">
+
+
+
+
+
+  <title>webpack常用优化 | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/26/webpack-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack常用优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-26T18:46:47+08:00">
+                2020-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第三方库处理-externals"><a href="#第三方库处理-externals" class="headerlink" title="第三方库处理-externals"></a>第三方库处理-externals</h3><p>防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。<a href="http://webpack.docschina.org/configuration/externals/" target="_blank" rel="noopener"><code>参见externals</code></a><br><a id="more"></a></p>
+<h3 id="include-exclude-常用于loader"><a href="#include-exclude-常用于loader" class="headerlink" title="include exclude 常用于loader"></a>include exclude 常用于loader</h3><ul>
+<li>首先，不配置这两个属性你引入的模块还是会被打包。</li>
+<li>但是，很多第三方模块是不需要再被处理的，比如jQuery,不需要再被babel处理，因为jQuery已经是es5，浏览器直接可以识别。这个时候，你不设置exclude，jQuery就会被处理，这样就增加了打包时间。</li>
+<li>所以，设置好exclude和include可以优化打包时间。</li>
+</ul>
+<h3 id="scope-hoisting"><a href="#scope-hoisting" class="headerlink" title="scope-hoisting"></a>scope-hoisting</h3><p>Scope Hoisting 它可以让webpack打包出来的代码文件更小，运行更快，它可以被称作为 “作用域提升”。是在webpack3中提出来的，当然现在webpack4也是支持的。</p>
+<ul>
+<li>代码体积更小，因为函数申明语句会产生大量代码；</li>
+<li>代码在运行时因为创建的函数作用域更少了，内存开销也随之变小。</li>
+<li>由于 Scope Hoisting 需要分析出模块之间的依赖关系，因此源码必须采用 ES6 模块化语句，不然它将无法生效。 <ul>
+<li>ES2015 的模块语法规定 import 和 export 关键字必须在顶层、模块路径只能用字符串字面量，这种“强制静态化”的做法使代码在编译时就能确定模块的依赖关系，以及输入和输出的变量，所以这种功能实现起来会更加简便。<br>暂不支持 CommonJS 模块语法的原因是，这种模块语法中的模块是可以动态加载的，很难分析出模块之间的依赖关系及输出的变量。</li>
+</ul>
+</li>
+<li><p>预先计算部分值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// d.js</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">let</span> d = a + b + c;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> d;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> d <span class="keyword">from</span> <span class="string">'./d'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(d)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>prod环境开启了后部分代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">([<span class="function"><span class="keyword">function</span> (<span class="params">e, t, r</span>) </span>&#123; <span class="string">"use strict"</span>; r.r(t); <span class="built_in">console</span>.log(<span class="string">"1111111"</span>), <span class="built_in">console</span>.log(<span class="string">"result is"</span>, <span class="number">6</span>) &#125;]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dev环境未开启bundle.js部分代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******/</span> (&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/d.js"</span>:</span><br><span class="line"><span class="comment">/*!******************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/d.js ***!</span></span><br><span class="line"><span class="comment">  \******************/</span></span><br><span class="line"><span class="comment">/*! exports provided: default */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line">__webpack_require__.r(__webpack_exports__);</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> d = a + b + c;</span><br><span class="line"><span class="comment">/* harmony default export */</span> __webpack_exports__[<span class="string">"default"</span>] = (d);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;),</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/index.js"</span>:</span><br><span class="line"><span class="comment">/*!**********************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/index.js ***!</span></span><br><span class="line"><span class="comment">  \**********************/</span></span><br><span class="line"><span class="comment">/*! no exports provided */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line">__webpack_require__.r(__webpack_exports__);</span><br><span class="line"><span class="comment">/* harmony import */</span> <span class="keyword">var</span> _d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<span class="comment">/*! ./d */</span> <span class="string">"./src/d.js"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'1111111'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'result is'</span>, _d__WEBPACK_IMPORTED_MODULE_0__[<span class="string">"default"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="webpackBundle-analyzer"><a href="#webpackBundle-analyzer" class="headerlink" title="webpackBundle-analyzer"></a>webpackBundle-analyzer</h3><p>通过本插件分析打包文件</p>
+<h3 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree-shaking"></a>tree-shaking</h3><p>tree shaking 是一个术语，通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code)。它依赖于 ES2015 模块语法的 静态结构 特性，例如 import 和 export。这个术语和概念实际上是由 ES2015 模块打包工具 rollup 普及起来的。<br>webpack 2 正式版本内置支持 ES2015 模块（也叫做 harmony modules）和未使用模块检测能力。新的 webpack 4 正式版本扩展了此检测能力，通过 package.json 的 “sideEffects” 属性作为标记，向 compiler 提供提示，表明项目中的哪些文件是 “pure(纯的 ES2015 模块)”，由此可以安全地删除文件中未使用的部分。</p>
+<ul>
+<li>tree-shaking 默认只支持 es6语法静态导入，不支持require等</li>
+<li><code>production</code>环境默认支持dev环境不支持</li>
+<li>确保没有 compiler 将 ES2015 模块语法转换为 CommonJS 模块</li>
+<li>在项目 package.json 文件中，添加一个 “sideEffects” 属性。<ul>
+<li>sideEffects<ul>
+<li>package.json里sideEffects默认是true<ul>
+<li>即使没使用test变量，但是import test.js后仍然会打包到bundle</li>
+</ul>
+</li>
+<li>package.json的sideEffects为false的话<ul>
+<li>test文件不会被打包到bundle</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package.json</span></span><br><span class="line"><span class="comment">//排除css，否则css也会被排除在外</span></span><br><span class="line">  <span class="string">"sideEffects"</span>: [</span><br><span class="line">    <span class="string">"**/*.css"</span></span><br><span class="line">  ],</span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">'./test'</span><span class="comment">//代码没用test变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//test.js，有副作用，不是纯函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'llloooootesttest'</span>) <span class="comment">//副作用effects</span></span><br><span class="line">test();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> test;</span><br></pre></td></tr></table></figure>
+<h3 id="第三方库处理-dll-动态链接库"><a href="#第三方库处理-dll-动态链接库" class="headerlink" title="第三方库处理-dll(动态链接库)"></a>第三方库处理-dll(动态链接库)</h3><p>DLLPlugin 和 DLLReferencePlugin 用某种方法实现了拆分 bundles，同时还大大提升了构建的速度。</p>
+<ul>
+<li><p>dll.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dll.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllPlugin;</span><br><span class="line"><span class="comment">// 需要产生一个缓存列表</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'development'</span>,</span><br><span class="line">    entry : [<span class="string">'react'</span>,<span class="string">'react-dom'</span>], <span class="comment">// add minus</span></span><br><span class="line">    output:&#123;</span><br><span class="line">        library:<span class="string">'react'</span>,<span class="comment">//放全局变量</span></span><br><span class="line">        <span class="comment">// libraryTarget:'commonjs2', //默认是var,commonjs, commonjs2, umd this</span></span><br><span class="line">        filename : <span class="string">'react.dll.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname,<span class="string">'dll'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">            name : <span class="string">'react'</span>,</span><br><span class="line">            path : path.resolve(__dirname,<span class="string">'dll/manifest.json'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack.config配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="comment">// // dll去找manifest.json文件</span></span><br><span class="line"><span class="keyword">new</span> DLLReferencePlugin(&#123;</span><br><span class="line">    manifest : path.resolve(__dirname,<span class="string">'./dll/manifest.json'</span>)</span><br><span class="line">&#125;),</span><br><span class="line"><span class="comment">// //将dllreact.js引入到html</span></span><br><span class="line"><span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</span><br><span class="line">    filepath : path.resolve(__dirname,<span class="string">'./dll/react.dll.js'</span>)</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>html模板<br>需要单独引用打好的dll文件，或者通过AddAssetHtmlPlugin自动引入</p>
+</li>
+</ul>
+<h3 id="构建速度-splitChunks"><a href="#构建速度-splitChunks" class="headerlink" title="构建速度-splitChunks"></a>构建速度-splitChunks</h3><p>webpack 总共提供了三种办法来实现 Code Splitting，</p>
+<blockquote>
+<ul>
+<li>入口配置：entry 入口使用多个入口文件；</li>
+<li><code>抽取公有代码：使用 SplitChunks 抽取公有代码；</code></li>
+<li>动态加载 ：动态加载一些代码。</li>
+</ul>
+</blockquote>
+<ul>
+<li>多entry时，相同文件文件提取</li>
+<li>被不同文件引用过N次以上时提取</li>
+<li>chunks参数<ul>
+<li>async（默认）<ul>
+<li>只有通过import(‘aaaa.js’).then动态语法会提取公共文件</li>
+</ul>
+</li>
+<li>initial/all<ul>
+<li>动态导入或静态导入多次的都会提取为公共文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>minChunks<br>  模块被不同的 chunk 引入超过 1 次的抽取为 common</li>
+<li>catchGroup<br>它可以继承/覆盖上面 splitChunks 中所有的参数值，除此之外还额外提供了三个配置，分别为：test, priority 和 reuseExistingChunk。<br>test: 表示要过滤 modules，默认为所有的 modules，可匹配模块路径或 chunk 名字，当匹配的是 chunk 名字的时候，其里面的所有 modules 都会选中；<br>priority：表示抽取权重，数字越大表示优先级越高。因为一个 module 可能会满足多个 cacheGroups 的条件，那么抽取到哪个就由权重最高的说了算；<br>reuseExistingChunk：表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生产环境下第三方模块进行抽离</span></span><br><span class="line">optimization:&#123;</span><br><span class="line">    <span class="comment">// usedExports:true,</span></span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">        chunks: <span class="string">'initial'</span>,</span><br><span class="line">        minSize: <span class="number">30000</span>,</span><br><span class="line">        maxSize: <span class="number">0</span>,</span><br><span class="line">        minChunks: <span class="number">1</span>,</span><br><span class="line">        maxAsyncRequests: <span class="number">6</span>,</span><br><span class="line">        maxInitialRequests: <span class="number">4</span>,</span><br><span class="line">        automaticNameDelimiter: <span class="string">'~'</span>,</span><br><span class="line">        automaticNameMaxLength: <span class="number">30</span>,</span><br><span class="line">        cacheGroups: &#123;</span><br><span class="line">          react:&#123;</span><br><span class="line">            test : <span class="regexp">/[\\/]node_modules[\\/](react)|(react-dom)/</span>,</span><br><span class="line">            priority:<span class="number">-2</span></span><br><span class="line">          &#125;,</span><br><span class="line">          defaultVendors: &#123;</span><br><span class="line">            test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">            priority: <span class="number">-10</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="keyword">default</span>: &#123;</span><br><span class="line">            minChunks: <span class="number">2</span>,</span><br><span class="line">            priority: <span class="number">-20</span>,</span><br><span class="line">            reuseExistingChunk: <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="动态加载-代码分割"><a href="#动态加载-代码分割" class="headerlink" title="动态加载-代码分割"></a>动态加载-代码分割</h3><ul>
+<li>动态导入 类比路由的懒加载 import</li>
+<li>默认会产生代码分割</li>
+<li>使用jsonp异步加载</li>
+<li>魔术字符串修改分割文件name<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">button.addEventListener(<span class="string">'click'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="comment">// 动态导入 类比路由的懒加载 import</span></span><br><span class="line">    <span class="comment">// 默认会产生代码分割</span></span><br><span class="line">    <span class="comment">// 使用jsonp异步加载 ./calc</span></span><br><span class="line">    <span class="comment">// 魔术字符串修改分割文件name</span></span><br><span class="line">    <span class="keyword">import</span>(<span class="comment">/* wepbackChunkName:'video' */</span><span class="string">'./calc'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res.add(<span class="number">23</span>,<span class="number">32</span>))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//修改异步chunk名字，chunkFilename:'[name].min.js'</span></span><br><span class="line"><span class="comment">// 0.min.js</span></span><br><span class="line"><span class="comment">// 8.bundle.js</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/24/promise-implement/" rel="next" title="promise-implement">
+                <i class="fa fa-chevron-left"></i> promise-implement
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">87</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-externals"><span class="nav-number">1.</span> <span class="nav-text">第三方库处理-externals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include-exclude-常用于loader"><span class="nav-number">2.</span> <span class="nav-text">include exclude 常用于loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope-hoisting"><span class="nav-number">3.</span> <span class="nav-text">scope-hoisting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpackBundle-analyzer"><span class="nav-number">4.</span> <span class="nav-text">webpackBundle-analyzer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree-shaking"><span class="nav-number">5.</span> <span class="nav-text">tree-shaking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-dll-动态链接库"><span class="nav-number">6.</span> <span class="nav-text">第三方库处理-dll(动态链接库)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建速度-splitChunks"><span class="nav-number">7.</span> <span class="nav-text">构建速度-splitChunks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态加载-代码分割"><span class="nav-number">8.</span> <span class="nav-text">动态加载-代码分割</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
