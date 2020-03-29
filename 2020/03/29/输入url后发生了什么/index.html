@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="css3,flex,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -77,18 +77,17 @@
 
 
 
-<meta name="description" content="发现一篇关于flex-grow不错的文章原文 中文版">
-<meta name="keywords" content="css3,flex">
+<meta name="description" content="DNS域名解析找到ip 先看dns缓存有无 看host有没有绑定 nslookup等找到域名服务商解析ip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="understand-flex-grow">
-<meta property="og:url" content="http://yoursite.com/2016/05/05/understand-flex-grow/index.html">
+<meta property="og:title" content="输入url后发生了什么">
+<meta property="og:url" content="http://yoursite.com/2020/03/29/输入url后发生了什么/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="发现一篇关于flex-grow不错的文章原文 中文版">
+<meta property="og:description" content="DNS域名解析找到ip 先看dns缓存有无 看host有没有绑定 nslookup等找到域名服务商解析ip">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-20T10:43:34.792Z">
+<meta property="og:updated_time" content="2020-03-29T10:02:34.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="understand-flex-grow">
-<meta name="twitter:description" content="发现一篇关于flex-grow不错的文章原文 中文版">
+<meta name="twitter:title" content="输入url后发生了什么">
+<meta name="twitter:description" content="DNS域名解析找到ip 先看dns缓存有无 看host有没有绑定 nslookup等找到域名服务商解析ip">
 
 
 
@@ -118,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/05/05/understand-flex-grow/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/29/输入url后发生了什么/">
 
 
 
 
 
-  <title>understand-flex-grow | 志当存高远，望尽天涯路</title>
+  <title>输入url后发生了什么 | 志当存高远，望尽天涯路</title>
   
 
 
@@ -251,7 +250,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/05/understand-flex-grow/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/输入url后发生了什么/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="331502715@qq.com">
@@ -268,7 +267,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">understand-flex-grow</h1>
+          <h1 class="post-title" itemprop="name headline">输入url后发生了什么</h1>
         
 
         <div class="post-meta">
@@ -280,8 +279,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-05T15:46:03+08:00">
-                2016-05-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-29T16:57:18+08:00">
+                2020-03-29
               </time>
             
 
@@ -340,7 +339,71 @@
       
 
       
-        <p>发现一篇关于flex-grow不错的文章<br><a href="https://css-tricks.com/flex-grow-is-weird/" target="_blank" rel="noopener">原文</a> <a href="http://jinlong.github.io/2016/02/04/flex-grow-is-weird/" target="_blank" rel="noopener">中文版</a></p>
+        <h3 id="DNS域名解析找到ip"><a href="#DNS域名解析找到ip" class="headerlink" title="DNS域名解析找到ip"></a>DNS域名解析找到ip</h3><ul>
+<li>先看dns缓存有无</li>
+<li>看host有没有绑定</li>
+<li>nslookup等找到域名服务商解析ip</li>
+</ul>
+<a id="more"></a>
+<h3 id="根据ip判断是否是网段内，还是外部网络"><a href="#根据ip判断是否是网段内，还是外部网络" class="headerlink" title="根据ip判断是否是网段内，还是外部网络"></a>根据ip判断是否是网段内，还是外部网络</h3><h3 id="通过arp协议找到网关"><a href="#通过arp协议找到网关" class="headerlink" title="通过arp协议找到网关"></a>通过arp协议找到网关</h3><h3 id="找到对方服务器ip"><a href="#找到对方服务器ip" class="headerlink" title="找到对方服务器ip"></a>找到对方服务器ip</h3><h3 id="通过三次握手建立tcp传输链路"><a href="#通过三次握手建立tcp传输链路" class="headerlink" title="通过三次握手建立tcp传输链路"></a>通过三次握手建立tcp传输链路</h3><ul>
+<li>“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</li>
+</ul>
+<h3 id="发http请求报文-4部分"><a href="#发http请求报文-4部分" class="headerlink" title="发http请求报文(4部分)"></a>发http请求报文(4部分)</h3><ul>
+<li>请求行<ul>
+<li>GET /api/34?a=2  http1.1</li>
+</ul>
+</li>
+<li>请求头<ul>
+<li>Accept/text/html</li>
+<li>Accept-Encoding</li>
+<li>If-none-match</li>
+<li>If-modified-sinced</li>
+<li>Refer</li>
+<li>Host</li>
+<li>cookie</li>
+<li>Connection:keep-alive</li>
+<li>Content-type:application/json</li>
+</ul>
+</li>
+<li>空行</li>
+<li>请求body<ul>
+<li>a=1&amp;b=2<h3 id="服务器处理响应（4部分）"><a href="#服务器处理响应（4部分）" class="headerlink" title="服务器处理响应（4部分）"></a>服务器处理响应（4部分）</h3></li>
+</ul>
+</li>
+<li>响应行<ul>
+<li>302</li>
+</ul>
+</li>
+<li>响应头<ul>
+<li>content-type</li>
+<li>content-length</li>
+<li>content-encoding</li>
+<li>set-cookie</li>
+<li>cache-control</li>
+<li>eTag</li>
+<li>last-modified</li>
+<li>Access-control-allow-control</li>
+</ul>
+</li>
+<li>空行</li>
+<li>响应body</li>
+</ul>
+<h3 id="缓存到浏览器"><a href="#缓存到浏览器" class="headerlink" title="缓存到浏览器"></a>缓存到浏览器</h3><h3 id="接收完毕是否要close-keep-alive则会不关闭"><a href="#接收完毕是否要close-keep-alive则会不关闭" class="headerlink" title="接收完毕是否要close, keep-alive则会不关闭"></a>接收完毕是否要close, keep-alive则会不关闭</h3><h3 id="浏览器渲染"><a href="#浏览器渲染" class="headerlink" title="浏览器渲染"></a>浏览器渲染</h3><ul>
+<li>主要步骤<ul>
+<li>处理 HTML 标记并构建 DOM 树。</li>
+<li>处理 CSS 标记并构建 CSSOM 树。</li>
+<li>将 DOM 与 CSSOM 合并成一个渲染树。</li>
+<li>根据渲染树来布局，以计算每个节点的几何信息。</li>
+<li>将各个节点绘制到屏幕上。</li>
+</ul>
+</li>
+<li>注<ol>
+<li>CSSOM和DOM是并行构建的，但是renderTree需要等它们两个都完成才会构建</li>
+<li>构建DOM过程中遇到script标签后会暂停dom构建，并执行脚本，如果此时cssom尚未完成，脚本会待cssom完成时，继续执行脚本完成dom树</li>
+<li>CSS会阻塞渲染</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
@@ -356,14 +419,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/css3/" rel="tag"># css3</a>
-          
-            <a href="/tags/flex/" rel="tag"># flex</a>
-          
-        </div>
-      
 
       
       
@@ -373,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/26/ani-house/" rel="next" title="ani-house">
-                <i class="fa fa-chevron-left"></i> ani-house
+              <a href="/2020/03/26/webpack-optimize/" rel="next" title="webpack常用优化">
+                <i class="fa fa-chevron-left"></i> webpack常用优化
               </a>
             
           </div>
@@ -382,10 +437,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/12/throttle-vs-debounce/" rel="prev" title="throttle-vs-debounce">
-                throttle-vs-debounce <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -437,8 +488,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -500,6 +560,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS域名解析找到ip"><span class="nav-number">1.</span> <span class="nav-text">DNS域名解析找到ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据ip判断是否是网段内，还是外部网络"><span class="nav-number">2.</span> <span class="nav-text">根据ip判断是否是网段内，还是外部网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过arp协议找到网关"><span class="nav-number">3.</span> <span class="nav-text">通过arp协议找到网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找到对方服务器ip"><span class="nav-number">4.</span> <span class="nav-text">找到对方服务器ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过三次握手建立tcp传输链路"><span class="nav-number">5.</span> <span class="nav-text">通过三次握手建立tcp传输链路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发http请求报文-4部分"><span class="nav-number">6.</span> <span class="nav-text">发http请求报文(4部分)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器处理响应（4部分）"><span class="nav-number">7.</span> <span class="nav-text">服务器处理响应（4部分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存到浏览器"><span class="nav-number">8.</span> <span class="nav-text">缓存到浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收完毕是否要close-keep-alive则会不关闭"><span class="nav-number">9.</span> <span class="nav-text">接收完毕是否要close, keep-alive则会不关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器渲染"><span class="nav-number">10.</span> <span class="nav-text">浏览器渲染</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
