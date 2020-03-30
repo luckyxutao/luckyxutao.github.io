@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,ssr,node,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="涉及到的技术本方式基于webpack、react、redux、react-router、koa、axios等技术封装，本方案未完待续～">
+<meta name="keywords" content="react,ssr,node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于React的SSR方案分享">
+<meta property="og:url" content="http://yoursite.com/2020/03/30/ssr/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="涉及到的技术本方式基于webpack、react、redux、react-router、koa、axios等技术封装，本方案未完待续～">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-30T08:10:47.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于React的SSR方案分享">
+<meta name="twitter:description" content="涉及到的技术本方式基于webpack、react、redux、react-router、koa、axios等技术封装，本方案未完待续～">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/30/ssr/">
+
+
+
+
+
+  <title>基于React的SSR方案分享 | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/30/ssr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于React的SSR方案分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T15:26:11+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="涉及到的技术"><a href="#涉及到的技术" class="headerlink" title="涉及到的技术"></a>涉及到的技术</h3><p>本方式基于webpack、react、redux、react-router、koa、axios等技术封装，<code>本方案未完待续～</code></p>
+<a id="more"></a>
+<h3 id="简介及特点"><a href="#简介及特点" class="headerlink" title="简介及特点"></a>简介及特点</h3><ol>
+<li><p>更利于SEO。<br>不同爬虫工作原理类似，只会爬取源码，不会执行网站的任何脚本（Google除外，据说Googlebot可以运行javaScript）。使用了React或者其它MVVM框架之后，页面大多数DOM元素都是在客户端根据js动态生成，可供爬虫抓取分析的内容大大减少(如图一)。另外，浏览器爬虫不会等待我们的数据完成之后再去抓取我们的页面数据。服务端渲染返回给客户端的是已经获取了异步数据并执行JavaScript脚本的最终HTML，网络爬中就可以抓取到完整页面的信息。</p>
+</li>
+<li><p>更利于首屏渲染<br>首屏的渲染是node发送过来的html字符串，并不依赖于js文件了，这就会使用户更快的看到页面的内容。尤其是针对大型单页应用，打包后文件体积比较大，普通客户端渲染加载所有所需文件时间较长，首页就会有一个很长的白屏等待时间。</p>
+</li>
+</ol>
+<h3 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h3><ul>
+<li><p>服务端压力较大<br>本来是通过客户端完成渲染，现在统一到服务端node服务去做。尤其是高并发访问的情况，会大量占用服务端CPU资源；</p>
+</li>
+<li><p>开发条件受限<br>在服务端渲染中，只会执行到componentDidMount之前的生命周期钩子，因此项目引用的第三方的库也不可用其它生命周期钩子，这对引用库的选择产生了很大的限制；</p>
+</li>
+<li><p>学习成本相对较高<br>除了对webpack、React要熟悉，还需要掌握node、Koa2等相关技术。相对于客户端渲染，项目构建、部署过程更加复杂</p>
+</li>
+</ul>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"ssr"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"dev:server"</span>: <span class="string">"nodemon build/server.js"</span>,</span><br><span class="line">    <span class="string">"debug"</span>: <span class="string">"nodemon --inspect-brk build/server.js"</span>,</span><br><span class="line">    <span class="string">"dev:build:server"</span>: <span class="string">"webpack --config webpack.server.js --watch"</span>,</span><br><span class="line">    <span class="string">"dev:build:client"</span>: <span class="string">"webpack --config webpack.client.js --watch"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"keywords"</span>: [],</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"axios"</span>: <span class="string">"^0.19.2"</span>,</span><br><span class="line">    <span class="string">"koa"</span>: <span class="string">"^2.11.0"</span>,</span><br><span class="line">    <span class="string">"koa-proxy"</span>: <span class="string">"^1.0.0-alpha.3"</span>,</span><br><span class="line">    <span class="string">"koa-router"</span>: <span class="string">"^8.0.8"</span>,</span><br><span class="line">    <span class="string">"koa-static"</span>: <span class="string">"^5.0.0"</span>,</span><br><span class="line">    <span class="string">"react"</span>: <span class="string">"^16.13.1"</span>,</span><br><span class="line">    <span class="string">"react-dom"</span>: <span class="string">"^16.13.1"</span>,</span><br><span class="line">    <span class="string">"react-redux"</span>: <span class="string">"^7.2.0"</span>,</span><br><span class="line">    <span class="string">"react-router-config"</span>: <span class="string">"^5.1.1"</span>,</span><br><span class="line">    <span class="string">"react-router-dom"</span>: <span class="string">"^5.1.2"</span>,</span><br><span class="line">    <span class="string">"redux"</span>: <span class="string">"^4.0.5"</span>,</span><br><span class="line">    <span class="string">"redux-logger"</span>: <span class="string">"^3.0.6"</span>,</span><br><span class="line">    <span class="string">"redux-thunk"</span>: <span class="string">"^2.3.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"@babel/core"</span>: <span class="string">"^7.9.0"</span>,</span><br><span class="line">    <span class="string">"@babel/plugin-proposal-class-properties"</span>: <span class="string">"^7.8.3"</span>,</span><br><span class="line">    <span class="string">"@babel/plugin-transform-runtime"</span>: <span class="string">"^7.9.0"</span>,</span><br><span class="line">    <span class="string">"@babel/preset-env"</span>: <span class="string">"^7.9.0"</span>,</span><br><span class="line">    <span class="string">"@babel/preset-react"</span>: <span class="string">"^7.9.4"</span>,</span><br><span class="line">    <span class="string">"babel-loader"</span>: <span class="string">"^8.1.0"</span>,</span><br><span class="line">    <span class="string">"style-loader"</span>: <span class="string">"^1.1.3"</span>,</span><br><span class="line">    <span class="string">"css-loader"</span>: <span class="string">"^3.4.2"</span>,</span><br><span class="line">    <span class="string">"ignore-loader"</span>: <span class="string">"^0.1.2"</span>,</span><br><span class="line">    <span class="string">"node-sass"</span>: <span class="string">"^4.13.1"</span>,</span><br><span class="line">    <span class="string">"nodemon"</span>: <span class="string">"^2.0.2"</span>,</span><br><span class="line">    <span class="string">"sass-loader"</span>: <span class="string">"^8.0.2"</span>,</span><br><span class="line">    <span class="string">"webpack"</span>: <span class="string">"^4.42.1"</span>,</span><br><span class="line">    <span class="string">"webpack-cli"</span>: <span class="string">"^3.3.11"</span>,</span><br><span class="line">    <span class="string">"webpack-merge"</span>: <span class="string">"^4.2.2"</span>,</span><br><span class="line">    <span class="string">"webpack-node-externals"</span>: <span class="string">"^1.7.2"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="基于webpack构建"><a href="#基于webpack构建" class="headerlink" title="基于webpack构建"></a>基于webpack构建</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.client.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> base = <span class="built_in">require</span>(<span class="string">'./webpack.base'</span>);</span><br><span class="line"><span class="keyword">const</span> webpackMerge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = webpackMerge(base, &#123;</span><br><span class="line">    entry: <span class="string">'./src/client/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(<span class="string">'static'</span>),</span><br><span class="line">        filename: <span class="string">'client.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test : <span class="regexp">/\.scss$/i</span>,</span><br><span class="line">                use : [<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span>,<span class="string">'sass-loader'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// webpack.server.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> nodeExternal = <span class="built_in">require</span>(<span class="string">'webpack-node-externals'</span>);</span><br><span class="line"><span class="keyword">const</span> base = <span class="built_in">require</span>(<span class="string">'./webpack.base'</span>);</span><br><span class="line"><span class="keyword">const</span> webpackMerge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = webpackMerge(base,&#123;</span><br><span class="line">    target: <span class="string">'node'</span>,</span><br><span class="line">    entry: <span class="string">'./src/server/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(<span class="string">'build'</span>),</span><br><span class="line">        filename: <span class="string">'server.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    externals: [nodeExternal()],</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test : <span class="regexp">/\.s?css$/</span>,</span><br><span class="line">                loader : <span class="string">'ignore-loader'</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// webpack.base.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'development'</span>,</span><br><span class="line">    devtool:<span class="string">'source-map'</span>,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">                loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">                options: &#123;</span><br><span class="line">                    presets: [</span><br><span class="line">                        <span class="string">'@babel/preset-env'</span>,</span><br><span class="line">                        <span class="string">'@babel/preset-react'</span></span><br><span class="line">                    ],</span><br><span class="line">                    plugins: [</span><br><span class="line">                        <span class="string">'@babel/plugin-transform-runtime'</span>,</span><br><span class="line">                        <span class="string">'@babel/plugin-proposal-class-properties'</span></span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><ul>
+<li><p>getClientStore<br>  需要把第一次服务端渲染的state同步给client的store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> createStore(reducers, <span class="built_in">window</span>.__GLOBAL_INIT_STATE, applyMiddleware(thunk, logger));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>getServerStore</p>
+</li>
+</ul>
+<h3 id="containers-共享"><a href="#containers-共享" class="headerlink" title="containers(共享)"></a>containers(共享)</h3><ul>
+<li>react组件，前后端共享</li>
+<li>未按redux方式组织目录，采用了<code>以应用的状态作为模块的划分依据</code></li>
+<li>目录结构采用了<a href="https://github.com/erikras/ducks-modular-redux" target="_blank" rel="noopener">Ducks: Redux Reducer Bundles</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ssr git:(master) ✗ tree src/containers </span><br><span class="line">src/containers</span><br><span class="line">├── App</span><br><span class="line">│   ├── action.js</span><br><span class="line">│   ├── index.js</span><br><span class="line">│   ├── index.scss</span><br><span class="line">│   ├── reducer.js</span><br><span class="line">│   └── type.js</span><br><span class="line">├── Main</span><br><span class="line">│   └── index.js</span><br><span class="line">├── Search</span><br><span class="line">│   ├── index.css</span><br><span class="line">│   ├── index.js</span><br><span class="line">│   └── reducer.js</span><br><span class="line">└── reducers.js</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><p>和server端共用一套路由，通过renderRoutes渲染路由<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> routes <span class="keyword">from</span> <span class="string">'../routes'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter, Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;renderRoutes,matchRoutes&#125; <span class="keyword">from</span> <span class="string">'react-router-config'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getClientStore &#125; <span class="keyword">from</span> <span class="string">'../store'</span>;</span><br><span class="line">ReactDOM.hydrate(&lt;Provider store=&#123;getClientStore()&#125;&gt;</span><br><span class="line">    &lt;BrowserRouter&gt;</span><br><span class="line">        &#123;renderRoutes(routes)&#125;</span><br><span class="line">    &lt;/BrowserRouter&gt;&lt;/Provider&gt;, <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="services（共享）"><a href="#services（共享）" class="headerlink" title="services（共享）"></a>services（共享）</h3><p>client/server都会调用该层，故抽到单独一层</p>
+<ul>
+<li>基于axiox封装了request方法</li>
+<li>服务端调接口时透传了cookie</li>
+<li>NetInterface时封装了常用业务接口</li>
+</ul>
+<h3 id="routes（共享）"><a href="#routes（共享）" class="headerlink" title="routes（共享）"></a>routes（共享）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Fragment &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'../containers/App'</span>;</span><br><span class="line"><span class="keyword">import</span> Search <span class="keyword">from</span> <span class="string">'../containers/Search'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> Main <span class="keyword">from</span> <span class="string">'../containers/Main'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [&#123;</span><br><span class="line">    path:<span class="string">'/'</span>,</span><br><span class="line">    <span class="comment">// exact: true,</span></span><br><span class="line">    component:Main,</span><br><span class="line">    routes: [&#123;</span><br><span class="line">        path: <span class="string">"/app"</span>,</span><br><span class="line">        component: App,</span><br><span class="line">        key:<span class="string">'app'</span>,</span><br><span class="line">        getInitialProps: App.getInitialProps</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        path: <span class="string">"/search"</span>,</span><br><span class="line">        key:<span class="string">'search'</span>,</span><br><span class="line">        component: Search,</span><br><span class="line">        getInitialProps: Search.getInitialProps</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><ul>
+<li>koa承担server服务</li>
+<li>react-router-config的matchRoutes来做路由匹配及渲染</li>
+<li>匹配成功的路由会调组件外挂getInitialProps静态方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; StaticRouter&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;renderRoutes,matchRoutes&#125; <span class="keyword">from</span> <span class="string">'react-router-config'</span><span class="comment">//渲染路由</span></span><br><span class="line"><span class="keyword">import</span> &#123; renderToString &#125; <span class="keyword">from</span> <span class="string">'react-dom/server'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> routes <span class="keyword">from</span> <span class="string">'../routes'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getServerStore &#125; <span class="keyword">from</span> <span class="string">'../store'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">reqPath</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = &#123;</span><br><span class="line">        name: <span class="string">'xutao'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> store = getServerStore();</span><br><span class="line">    <span class="keyword">let</span> matchedRoutes= matchRoutes(routes,reqPath);</span><br><span class="line">    <span class="keyword">let</span> promises = [];</span><br><span class="line">    matchedRoutes.forEach(<span class="function"><span class="params">item</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(item.route.getInitialProps)&#123;</span><br><span class="line">            promises.push(item.route.getInitialProps(store));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">await</span> <span class="built_in">Promise</span>.all(promises);</span><br><span class="line">    <span class="keyword">const</span> html = renderToString(</span><br><span class="line">        &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">            &lt;StaticRouter context=&#123;context&#125; location=&#123;reqPath&#125;&gt;&#123;renderRoutes(routes)&#125;&lt;<span class="regexp">/StaticRouter&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Provider&gt;</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">const</span> htmlTemplate = <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="string">    &lt;html lang="en"&gt;</span></span><br><span class="line"><span class="string">    &lt;head&gt;</span></span><br><span class="line"><span class="string">        &lt;meta charset="UTF-8"&gt;</span></span><br><span class="line"><span class="string">        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></span><br><span class="line"><span class="string">        &lt;title&gt;Document&lt;/title&gt;</span></span><br><span class="line"><span class="string">    &lt;/head&gt;</span></span><br><span class="line"><span class="string">    &lt;body&gt;</span></span><br><span class="line"><span class="string">        &lt;div id="root"&gt;<span class="subst">$&#123;html&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;script&gt;window.__GLOBAL_INIT_STATE = <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(store.getState())&#125;</span>&lt;/script&gt;</span></span><br><span class="line"><span class="string">        &lt;script src="/static/client.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;`</span>;</span><br><span class="line">    <span class="keyword">return</span> htmlTemplate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/ssr/" rel="tag"># ssr</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/29/输入url后发生了什么/" rel="next" title="输入url后发生了什么">
+                <i class="fa fa-chevron-left"></i> 输入url后发生了什么
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及到的技术"><span class="nav-number">1.</span> <span class="nav-text">涉及到的技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介及特点"><span class="nav-number">2.</span> <span class="nav-text">简介及特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局限"><span class="nav-number">3.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json"><span class="nav-number">4.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于webpack构建"><span class="nav-number">5.</span> <span class="nav-text">基于webpack构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store"><span class="nav-number">6.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#containers-共享"><span class="nav-number">7.</span> <span class="nav-text">containers(共享)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client"><span class="nav-number">8.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#services（共享）"><span class="nav-number">9.</span> <span class="nav-text">services（共享）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#routes（共享）"><span class="nav-number">10.</span> <span class="nav-text">routes（共享）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server"><span class="nav-number">11.</span> <span class="nav-text">server</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
