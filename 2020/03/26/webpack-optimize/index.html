@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="第三方库处理-externals防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。参见externals">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-26T13:49:08.976Z">
+<meta property="og:updated_time" content="2020-04-01T10:42:09.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack常用优化">
 <meta name="twitter:description" content="第三方库处理-externals防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。参见externals">
@@ -328,10 +328,7 @@
 <h3 id="include-exclude-常用于loader"><a href="#include-exclude-常用于loader" class="headerlink" title="include exclude 常用于loader"></a>include exclude 常用于loader</h3><ul>
 <li>首先，不配置这两个属性你引入的模块还是会被打包。</li>
 <li>但是，很多第三方模块是不需要再被处理的，比如jQuery,不需要再被babel处理，因为jQuery已经是es5，浏览器直接可以识别。这个时候，你不设置exclude，jQuery就会被处理，这样就增加了打包时间。</li>
-<li>所以，设置好exclude和include可以优化打包时间。</li>
-</ul>
-<h3 id="scope-hoisting"><a href="#scope-hoisting" class="headerlink" title="scope-hoisting"></a>scope-hoisting</h3><p>Scope Hoisting 它可以让webpack打包出来的代码文件更小，运行更快，它可以被称作为 “作用域提升”。是在webpack3中提出来的，当然现在webpack4也是支持的。</p>
-<ul>
+<li>所以，设置好exclude和include可以优化打包时间。<h3 id="babel-plugin-import"><a href="#babel-plugin-import" class="headerlink" title="babel-plugin-import"></a>babel-plugin-import</h3>实现模块按需加载、而不是引一个模块将整个库打包进来<h3 id="scope-hoisting"><a href="#scope-hoisting" class="headerlink" title="scope-hoisting"></a>scope-hoisting</h3>Scope Hoisting 它可以让webpack打包出来的代码文件更小，运行更快，它可以被称作为 “作用域提升”。是在webpack3中提出来的，当然现在webpack4也是支持的。</li>
 <li>代码体积更小，因为函数申明语句会产生大量代码；</li>
 <li>代码在运行时因为创建的函数作用域更少了，内存开销也随之变小。</li>
 <li>由于 Scope Hoisting 需要分析出模块之间的依赖关系，因此源码必须采用 ES6 模块化语句，不然它将无法生效。 <ul>
@@ -529,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +537,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -584,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-externals"><span class="nav-number">1.</span> <span class="nav-text">第三方库处理-externals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include-exclude-常用于loader"><span class="nav-number">2.</span> <span class="nav-text">include exclude 常用于loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope-hoisting"><span class="nav-number">3.</span> <span class="nav-text">scope-hoisting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpackBundle-analyzer"><span class="nav-number">4.</span> <span class="nav-text">webpackBundle-analyzer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree-shaking"><span class="nav-number">5.</span> <span class="nav-text">tree-shaking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-dll-动态链接库"><span class="nav-number">6.</span> <span class="nav-text">第三方库处理-dll(动态链接库)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建速度-splitChunks"><span class="nav-number">7.</span> <span class="nav-text">构建速度-splitChunks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态加载-代码分割"><span class="nav-number">8.</span> <span class="nav-text">动态加载-代码分割</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-externals"><span class="nav-number">1.</span> <span class="nav-text">第三方库处理-externals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#include-exclude-常用于loader"><span class="nav-number">2.</span> <span class="nav-text">include exclude 常用于loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-plugin-import"><span class="nav-number">3.</span> <span class="nav-text">babel-plugin-import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope-hoisting"><span class="nav-number">4.</span> <span class="nav-text">scope-hoisting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpackBundle-analyzer"><span class="nav-number">5.</span> <span class="nav-text">webpackBundle-analyzer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree-shaking"><span class="nav-number">6.</span> <span class="nav-text">tree-shaking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方库处理-dll-动态链接库"><span class="nav-number">7.</span> <span class="nav-text">第三方库处理-dll(动态链接库)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建速度-splitChunks"><span class="nav-number">8.</span> <span class="nav-text">构建速度-splitChunks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态加载-代码分割"><span class="nav-number">9.</span> <span class="nav-text">动态加载-代码分割</span></a></li></ol></div>
             
 
           </div>
