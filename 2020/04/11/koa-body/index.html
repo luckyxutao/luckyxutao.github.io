@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="原理,题,koa,">
+  <meta name="keywords" content="题,原理,koa,">
 
 
 
@@ -85,14 +85,14 @@
 
 
 <meta name="description" content="对于GET请求，我们可以直接通过request.query拿到请求参数，但是对于POST请求的处理，koa没有封装获取参数的方法，需要通过解析上下文context中的原生node.js请求对象req，将POST表单数据解析成query string（例如：a=1&amp;amp;b=2&amp;amp;c=3），再将query string 解析成JSON格式（例如：{“a”:”1”, “b”:”2”, “c”:">
-<meta name="keywords" content="原理,题,koa">
+<meta name="keywords" content="题,原理,koa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模拟koa-bodyparser中间件获取post参数">
 <meta property="og:url" content="http://yoursite.com/2020/04/11/koa-body/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="对于GET请求，我们可以直接通过request.query拿到请求参数，但是对于POST请求的处理，koa没有封装获取参数的方法，需要通过解析上下文context中的原生node.js请求对象req，将POST表单数据解析成query string（例如：a=1&amp;amp;b=2&amp;amp;c=3），再将query string 解析成JSON格式（例如：{“a”:”1”, “b”:”2”, “c”:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-12T09:12:05.319Z">
+<meta property="og:updated_time" content="2020-04-15T03:05:55.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模拟koa-bodyparser中间件获取post参数">
 <meta name="twitter:description" content="对于GET请求，我们可以直接通过request.query拿到请求参数，但是对于POST请求的处理，koa没有封装获取参数的方法，需要通过解析上下文context中的原生node.js请求对象req，将POST表单数据解析成query string（例如：a=1&amp;amp;b=2&amp;amp;c=3），再将query string 解析成JSON格式（例如：{“a”:”1”, “b”:”2”, “c”:">
@@ -353,7 +353,7 @@
 <li>取到req.headers[‘content-type’]，值为<code>application/x-www-form-urlencoded</code>或<code>application/json</code></li>
 <li><code>x-www-form-urlencoded</code>对应的格式为<code>a=1&amp;b=2</code>, json则是json对象</li>
 <li>通过<code>监听ctx.req对象的data和end事件</code>接收data数据</li>
-<li>按对应格式方式解析成json对象</li>
+<li>按对应格式方式解析成json对象放到request.body</li>
 </ol>
 <h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 获取请求数据的类型 json 或表单</span></span><br><span class="line">    <span class="keyword">let</span> contentType = ctx.get(<span class="string">"Content-Type"</span>);</span><br><span class="line">    <span class="keyword">if</span>([<span class="string">'application/x-www-form-urlencoded'</span>,<span class="string">'application/json'</span>].includes(contentType))&#123;</span><br><span class="line">        <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 存储数据的数组</span></span><br><span class="line">            <span class="keyword">let</span> dataArr = [];</span><br><span class="line">            <span class="comment">// 接收数据</span></span><br><span class="line">            ctx.req.on(<span class="string">"data"</span>, chunk =&gt; dataArr.push(chunk));</span><br><span class="line">            ctx.req.on(<span class="string">"end"</span>,()=&gt;&#123;</span><br><span class="line">                <span class="comment">// 获取数据 Buffer 格式</span></span><br><span class="line">                <span class="keyword">let</span> data = Buffer.concat(dataArr).toString();</span><br><span class="line">                <span class="keyword">if</span> (contentType === <span class="string">"application/x-www-form-urlencoded"</span>) &#123;</span><br><span class="line">                    <span class="comment">// 如果是表单提交，则将查询字符串转换成对象赋值给 ctx.request.body</span></span><br><span class="line">                    ctx.request.body = querystring.parse(data);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (contentType === <span class="string">"application/json"</span>) &#123;</span><br><span class="line">                    <span class="comment">// 如果是 json，则将字符串格式的对象转换成对象赋值给 ctx.request.body</span></span><br><span class="line">                    ctx.request.body = <span class="built_in">JSON</span>.parse(data);</span><br><span class="line">                &#125;</span><br><span class="line">                resolve()</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
@@ -372,9 +372,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/原理/" rel="tag"># 原理</a>
-          
             <a href="/tags/题/" rel="tag"># 题</a>
+          
+            <a href="/tags/原理/" rel="tag"># 原理</a>
           
             <a href="/tags/koa/" rel="tag"># koa</a>
           
@@ -389,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/04/implement-children-map/" rel="next" title="React.Children.map函数简单实现">
-                <i class="fa fa-chevron-left"></i> React.Children.map函数简单实现
+              <a href="/2020/04/11/Promise-allSettled/" rel="next" title="Promise.allSettled方法">
+                <i class="fa fa-chevron-left"></i> Promise.allSettled方法
               </a>
             
           </div>
@@ -476,7 +476,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-count">121</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
