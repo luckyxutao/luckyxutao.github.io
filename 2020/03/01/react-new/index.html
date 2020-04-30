@@ -93,7 +93,7 @@
 <meta property="og:description" content="学习react(基于15.6)过程中理解核心概念还是很重要的，便于我们抓住主干线索">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/30/JLB7WQ.png">
-<meta property="og:updated_time" content="2020-04-30T13:48:12.413Z">
+<meta property="og:updated_time" content="2020-04-30T13:51:43.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react核心概念梳理">
 <meta name="twitter:description" content="学习react(基于15.6)过程中理解核心概念还是很重要的，便于我们抓住主干线索">
@@ -355,7 +355,7 @@
 <li><p>element(虚拟DOM)</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    $$<span class="keyword">typeof</span>: <span class="built_in">Symbol</span>(react.element),</span><br><span class="line">    props : &#123;</span><br><span class="line">        id:<span class="string">'2222'</span>,</span><br><span class="line">        children:[&#123;</span><br><span class="line">            $$<span class="keyword">typeof</span>: <span class="built_in">Symbol</span>(react.element),</span><br><span class="line">            props : &#123;</span><br><span class="line">                onClick:<span class="keyword">this</span>.onClick,</span><br><span class="line">                className:<span class="string">'active'</span>,</span><br><span class="line">                children:<span class="string">'button'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            type : <span class="string">'span'</span></span><br><span class="line">        &#125;],</span><br><span class="line">    &#125;,</span><br><span class="line">    type : <span class="string">'div'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>instance<br>平时我们写的<code>class/函数</code>组件的实例，包含生命周期等<br>state/props变化后，触发更新逻辑</p>
+<li><p>instance<br>平时我们写的<code>class/函数</code>组件的实例，包含生命周期等<br>state/props变化后，触发更新逻辑 </p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">instance = <span class="keyword">new</span> Counter();</span><br><span class="line">Counter.getDerivedStateFromProps();</span><br><span class="line">instance.render()</span><br><span class="line">instance.didMount();</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>虚拟DOM管理类<br>根据<code>虚拟DOM</code>type创建的管理类，主要用来管理和维护<code>虚拟DOM</code>。内部拥有instance，用来获取新rendered元素、触发生命周期</p>
