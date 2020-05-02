@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="shell linux,find,">
+  <meta name="keywords" content="题,算法,位运算,">
 
 
 
@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="命令行查找文件、目录还是很方便的，常用如下： 精确匹配123➜  hexo-src git:(master) ✗ find ~/work/respo -name travel_touch/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch/Users/qitmac000321/work/respo/travel_touch">
-<meta name="keywords" content="shell linux,find">
+<meta name="description" content="说明写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。12输入: a = 1, b = 1输出: 2">
+<meta name="keywords" content="题,算法,位运算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="find命令最常用法">
-<meta property="og:url" content="http://yoursite.com/2017/08/21/find命令使用/index.html">
+<meta property="og:title" content="不用加减乘除做加法">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="命令行查找文件、目录还是很方便的，常用如下： 精确匹配123➜  hexo-src git:(master) ✗ find ~/work/respo -name travel_touch/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch/Users/qitmac000321/work/respo/travel_touch">
+<meta property="og:description" content="说明写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。12输入: a = 1, b = 1输出: 2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-20T10:43:34.785Z">
+<meta property="og:updated_time" content="2020-05-02T04:00:40.117Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="find命令最常用法">
-<meta name="twitter:description" content="命令行查找文件、目录还是很方便的，常用如下： 精确匹配123➜  hexo-src git:(master) ✗ find ~/work/respo -name travel_touch/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch/Users/qitmac000321/work/respo/travel_touch">
+<meta name="twitter:title" content="不用加减乘除做加法">
+<meta name="twitter:description" content="说明写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。12输入: a = 1, b = 1输出: 2">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/21/find命令使用/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/01/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/">
 
 
 
 
 
-  <title>find命令最常用法 | 志当存高远，望尽天涯路</title>
+  <title>不用加减乘除做加法 | 志当存高远，望尽天涯路</title>
   
 
 
@@ -258,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/find命令使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="331502715@qq.com">
@@ -275,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">find命令最常用法</h1>
+          <h1 class="post-title" itemprop="name headline">不用加减乘除做加法</h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T22:15:30+08:00">
-                2017-08-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-01T10:53:27+08:00">
+                2020-04-01
               </time>
             
 
@@ -310,8 +310,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -347,10 +347,26 @@
       
 
       
-        <p><code>命令行查找文件、目录还是很方便的，常用如下：</code></p>
-<h3 id="精确匹配"><a href="#精确匹配" class="headerlink" title="精确匹配"></a>精确匹配</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  hexo-src git:(master) ✗ find ~/work/respo -name travel_touch</span><br><span class="line">/Users/qitmac000321/work/respo/<span class="built_in">source</span>-travel/fonts/travel_touch</span><br><span class="line">/Users/qitmac000321/work/respo/travel_touch</span><br></pre></td></tr></table></figure>
-<h3 id="正则模糊查找文件"><a href="#正则模糊查找文件" class="headerlink" title="正则模糊查找文件"></a>正则模糊查找文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  hexo-src git:(master) ✗ find ~/work/respo -name 'travel_t*' -type f</span><br><span class="line">/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch/1.0.1/travel_touch.ttf</span><br><span class="line">/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch/1.0.1/travel_touch.woff</span><br></pre></td></tr></table></figure>
-<h3 id="正则模糊查找目录"><a href="#正则模糊查找目录" class="headerlink" title="正则模糊查找目录"></a>正则模糊查找目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  hexo-src git:(master) ✗ find ~/work/respo -name 'travel_t*' -type d</span><br><span class="line">/Users/qitmac000321/work/respo/source-travel/fonts/travel_touch</span><br><span class="line">/Users/qitmac000321/work/respo/travel_touch</span><br></pre></td></tr></table></figure>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/" target="_blank" rel="noopener">说明</a></h3><p>写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: a = <span class="number">1</span>, b = <span class="number">1</span></span><br><span class="line">输出: <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><a href="/2020/03/23/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/#more"><code>位操作基础</code></a></p>
+<ul>
+<li>s = a ^ b(求和<code>不考虑进</code>)<ul>
+<li>异或(XOR)可以用来模拟加法(<code>不考虑进位</code>)</li>
+<li><code>0+0=0^0-&gt;0, 1+0=1^0-&gt;1,0+1=0^1-&gt;1</code>，只有1+1=1^1(进位)-&gt;0<code>未满足</code></li>
+</ul>
+</li>
+<li>n = (a &amp; b) &lt;&lt; 1(找进位)<ul>
+<li><code>按位与</code>(a(i)和b(i)位<code>都为1</code>则是1)</li>
+<li>这个特性可以用来得到进位操作(a(i)位和b(i)位都是1)</li>
+<li>二进制<code>进位</code>是通过<code>左移操作</code>来完成的，左移(左移1位表示进1位)，如果是0左移后仍然会是0不影响</li>
+</ul>
+</li>
+<li>直到<code>无进位（n=0)</code>了，s就等于a+b的和</li>
+<li>只是用了公式计算一遍后，仍然可能有进位，则需要循环，直到无进位了，求和</li>
+</ul>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><a href="https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/solution/wei-cao-zuo-chu-li-bu-yong-yun-suan-fu-qiu-he-by-l/" target="_blank" rel="noopener">leetcode</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">a</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">b</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a=<span class="number">19</span>, b=<span class="number">7</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    1. 先求一次不考虑进位的加法</span></span><br><span class="line"><span class="comment">       00-&gt;0 01-&gt;1 10-&gt;1, 11-&gt;0(进位，没处理)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">let</span> carry = a ^ b;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    2. 计算进位</span></span><br><span class="line"><span class="comment">       两位均是1的过滤出来，11表示进位</span></span><br><span class="line"><span class="comment">       如果temp为0，表示没有进位，其实是可以直接相加的，不过是0的话再左移也没有影响</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">let</span> temp = (a &amp; b)&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    3.如果temp为0表示没有进位，比如：42+21，则直接相加返回</span></span><br><span class="line"><span class="comment">       101010 = 42</span></span><br><span class="line"><span class="comment">       010101 = 21</span></span><br><span class="line"><span class="comment">       000000 = 0，说明没有进位</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span>(temp === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//直接使用无进位加法求和的结果</span></span><br><span class="line">        <span class="keyword">return</span> carry;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> init;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">      temp不为0表示有进位（可能不止一个1）</span></span><br><span class="line"><span class="comment">     （19+7）=&gt; carry=20, temp = 6 相加（按同样的思路，直到没有进位了再求和 ）</span></span><br><span class="line"><span class="comment">      19 + 7 =&gt; 20 + 6 =&gt; 18 + 8 =&gt; 26 + 0</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">while</span>(temp)&#123;</span><br><span class="line">        <span class="comment">//变成了carry和temp的相加了(carry ^ temp);</span></span><br><span class="line">        <span class="comment">// carry=20,temp=6求和</span></span><br><span class="line">        init = carry ^ temp; <span class="comment">//这里先不修改carry的值，下一步算进位还要用到</span></span><br><span class="line">        <span class="comment">//变成新的进位</span></span><br><span class="line">        temp = (carry &amp; temp)&lt;&lt;<span class="number">1</span>; <span class="comment">//20+6，18+8进位(temp)仍然不是0(按之前思路有进位，不能直接相加)</span></span><br><span class="line">        <span class="comment">//变成新值，用新数继续求和</span></span><br><span class="line">        carry = init;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        最后求和（carray已经是temp为0时的求和结果）</span></span><br><span class="line"><span class="comment">        temp已经是0，因此carry就是最终结果</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> carry; <span class="comment">//carray ^ temp </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">add(<span class="number">19</span>,<span class="number">7</span>)</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -367,9 +383,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/shell-linux/" rel="tag"># shell linux</a>
+            <a href="/tags/题/" rel="tag"># 题</a>
           
-            <a href="/tags/find/" rel="tag"># find</a>
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/位运算/" rel="tag"># 位运算</a>
           
         </div>
       
@@ -382,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/21/serviceworker/" rel="next" title="serviceworker">
-                <i class="fa fa-chevron-left"></i> serviceworker
+              <a href="/2020/03/30/ssr/" rel="next" title="基于React的SSR方案分享">
+                <i class="fa fa-chevron-left"></i> 基于React的SSR方案分享
               </a>
             
           </div>
@@ -392,8 +410,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/16/css-fullscreen-100/" rel="prev" title="css fullscreen 100%">
-                css fullscreen 100% <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/04/implement-children-map/" rel="prev" title="React.Children.map函数简单实现">
+                React.Children.map函数简单实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -528,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#精确匹配"><span class="nav-number">1.</span> <span class="nav-text">精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则模糊查找文件"><span class="nav-number">2.</span> <span class="nav-text">正则模糊查找文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则模糊查找目录"><span class="nav-number">3.</span> <span class="nav-text">正则模糊查找目录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解"><span class="nav-number">3.</span> <span class="nav-text">题解</span></a></li></ol></div>
             
 
           </div>
