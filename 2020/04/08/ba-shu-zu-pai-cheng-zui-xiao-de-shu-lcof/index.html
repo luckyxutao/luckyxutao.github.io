@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="scroll,滚动条,">
+  <meta name="keywords" content="题,leetcode,栈,">
 
 
 
@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="最近开发了一个自定义滚动条，当鼠标hover到目标元素再滚动时，就会出现元素在滚动，外部窗口也在滚动，很不爽。   给body添加overflow，隐藏滚动条。缺点：视觉上出现页面左右晃动,体验差。 给body绑定mousewheel事件，如果当前是在目标元素，则阻止默认行为。缺点：不够优雅 给子元素mousewheel事件加上return false(兼容ie6)。缺点：无">
-<meta name="keywords" content="scroll,滚动条">
+<meta name="description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
+<meta name="keywords" content="题,leetcode,栈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不使用css来阻止滚动条滚动">
-<meta property="og:url" content="http://yoursite.com/2014/11/19/不使用css来阻止滚动条滚动/index.html">
+<meta property="og:title" content="把数组排成最小的数">
+<meta property="og:url" content="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="最近开发了一个自定义滚动条，当鼠标hover到目标元素再滚动时，就会出现元素在滚动，外部窗口也在滚动，很不爽。   给body添加overflow，隐藏滚动条。缺点：视觉上出现页面左右晃动,体验差。 给body绑定mousewheel事件，如果当前是在目标元素，则阻止默认行为。缺点：不够优雅 给子元素mousewheel事件加上return false(兼容ie6)。缺点：无">
+<meta property="og:description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-20T10:43:34.793Z">
+<meta property="og:updated_time" content="2020-05-04T03:45:45.391Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不使用css来阻止滚动条滚动">
-<meta name="twitter:description" content="最近开发了一个自定义滚动条，当鼠标hover到目标元素再滚动时，就会出现元素在滚动，外部窗口也在滚动，很不爽。   给body添加overflow，隐藏滚动条。缺点：视觉上出现页面左右晃动,体验差。 给body绑定mousewheel事件，如果当前是在目标元素，则阻止默认行为。缺点：不够优雅 给子元素mousewheel事件加上return false(兼容ie6)。缺点：无">
+<meta name="twitter:title" content="把数组排成最小的数">
+<meta name="twitter:description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2014/11/19/不使用css来阻止滚动条滚动/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/">
 
 
 
 
 
-  <title>不使用css来阻止滚动条滚动 | 志当存高远，望尽天涯路</title>
+  <title>把数组排成最小的数 | 志当存高远，望尽天涯路</title>
   
 
 
@@ -258,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/19/不使用css来阻止滚动条滚动/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="331502715@qq.com">
@@ -275,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">不使用css来阻止滚动条滚动</h1>
+          <h1 class="post-title" itemprop="name headline">把数组排成最小的数</h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-11-19T15:25:51+08:00">
-                2014-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T11:32:41+08:00">
+                2020-04-08
               </time>
             
 
@@ -310,8 +310,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -347,20 +347,13 @@
       
 
       
-        <hr>
-<p>最近开发了一个自定义滚动条，当鼠标hover到目标元素再滚动时，就会出现元素在滚动，外部窗口也在滚动，很不爽。</p>
-<blockquote>
-<ul>
-<li>给body添加overflow，隐藏滚动条。缺点：视觉上出现页面左右晃动,体验差。</li>
-<li>给body绑定mousewheel事件，如果当前是在目标元素，则阻止默认行为。缺点：不够优雅</li>
-<li>给子元素mousewheel事件加上return false(兼容ie6)。缺点：无</li>
-</ul>
-</blockquote>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/" target="_blank" rel="noopener">说明</a></h3><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</p>
 <a id="more"></a>
-<p>##第二种解决方案</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stopScroll = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	e.preventDefault();</span><br><span class="line">	e.stopPropagation();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line"><span class="keyword">this</span>._$<span class="built_in">window</span>.on(<span class="string">'mouseenter'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$body.on(<span class="string">'mousewheel'</span>,stopScroll);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">this</span>._$<span class="built_in">window</span>.on(<span class="string">'mouseleave'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$body.off(<span class="string">'mousewheel'</span>,stopScroll);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>##第三种方案</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//鼠标滚动时逻辑处理</span></span><br><span class="line">_mouseWheelHandler: <span class="function"><span class="keyword">function</span>(<span class="params">event, delta, deltaX, deltaY</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>._cacheFuncProxyer(<span class="string">'hasScrollBar'</span>)) &#123;</span><br><span class="line">		<span class="keyword">this</span>._execScrolling(delta * <span class="number">-1</span>, delta * <span class="keyword">this</span>._getGap());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>此题求拼接起来的 “最小数字” ，本质上是一个排序问题，只不过比较的是连续后的字符串值。</p>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/mian-shi-ti-45-ba-shu-zu-pai-cheng-zui-xiao-de-s-4/" target="_blank" rel="noopener">解析1</a>、<a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/kuai-su-pai-xu-shi-xian-ba-shu-zu-pai-cheng-zui-xi/" target="_blank" rel="noopener">解析2</a></li>
+</ul>
+<h3 id="快排实现"><a href="#快排实现" class="headerlink" title="快排实现"></a>快排实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minNumber = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    quickSort(nums,<span class="number">0</span>,nums.length<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> nums.join(<span class="string">''</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">nums,lo,hi</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(lo&gt;hi)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> i = partition(nums,lo,hi);</span><br><span class="line">    quickSort(nums,lo,i<span class="number">-1</span>);</span><br><span class="line">    quickSort(nums,i+<span class="number">1</span>,hi);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果a&gt;b则返回true,否则false;</span></span><br><span class="line"><span class="comment">//比较的是连接字符串的值，不是number值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x1 = a + <span class="string">''</span> + b;</span><br><span class="line">    <span class="keyword">let</span> x2 = b + <span class="string">''</span> + a;</span><br><span class="line">    <span class="comment">//比较的是字符串的是 '301' '103'</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">parseInt</span>(x1,<span class="number">10</span>) &gt; <span class="built_in">parseInt</span>(x2,<span class="number">10</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">nums,lo,hi</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = lo+<span class="number">1</span>, j = hi;</span><br><span class="line">    <span class="keyword">let</span> pivot = nums[lo];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=j)&#123;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j &amp;&amp; !(compare(nums[i],pivot)))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j &amp;&amp; compare(nums[j],pivot))&#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i&lt;=j)&#123;</span><br><span class="line">            <span class="keyword">let</span> temp = nums[i];</span><br><span class="line">            nums[i] = nums[j];</span><br><span class="line">            nums[j] = temp;</span><br><span class="line">            i++;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把第一个元素和j交换(i已经大于j了)</span></span><br><span class="line">    nums[lo] = nums[j];</span><br><span class="line">    nums[j] = pivot;</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -377,9 +370,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/scroll/" rel="tag"># scroll</a>
+            <a href="/tags/题/" rel="tag"># 题</a>
           
-            <a href="/tags/滚动条/" rel="tag"># 滚动条</a>
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/栈/" rel="tag"># 栈</a>
           
         </div>
       
@@ -392,8 +387,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/11/17/很赞的git教程/" rel="next" title="一个非常不错的git教程">
-                <i class="fa fa-chevron-left"></i> 一个非常不错的git教程
+              <a href="/2020/04/05/validate-stack-sequences/" rel="next" title="验证栈序列">
+                <i class="fa fa-chevron-left"></i> 验证栈序列
               </a>
             
           </div>
@@ -402,8 +397,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/11/19/IE无法识别点击区域/" rel="prev" title="IE无法识别点击区域">
-                IE无法识别点击区域 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/11/Promise-allSettled/" rel="prev" title="Promise.allSettled方法">
+                Promise.allSettled方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -456,8 +451,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -519,6 +523,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快排实现"><span class="nav-number">3.</span> <span class="nav-text">快排实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

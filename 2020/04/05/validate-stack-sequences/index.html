@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="说明算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都是 pop 出来了。解析1、解析2、解析3 步骤 用一个辅助栈(stack)模拟pushed队列的入栈操作 栈是先进后出的，由此 popped[头] = stack[尾]如果popped按排序始终能找到">
+<meta name="description" content="说明给定 pushed 和 popped 两个序列，每个序列中的 值都不重复，只有当它们可能是在最初空栈上进行的推入 push 和弹出 pop 操作序列的结果时，返回 true；否则，返回 false 。 算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都">
 <meta name="keywords" content="题,leetcode,栈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="验证栈序列">
 <meta property="og:url" content="http://yoursite.com/2020/04/05/validate-stack-sequences/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="说明算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都是 pop 出来了。解析1、解析2、解析3 步骤 用一个辅助栈(stack)模拟pushed队列的入栈操作 栈是先进后出的，由此 popped[头] = stack[尾]如果popped按排序始终能找到">
+<meta property="og:description" content="说明给定 pushed 和 popped 两个序列，每个序列中的 值都不重复，只有当它们可能是在最初空栈上进行的推入 push 和弹出 pop 操作序列的结果时，返回 true；否则，返回 false 。 算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-04T01:31:10.619Z">
+<meta property="og:updated_time" content="2020-05-04T03:46:33.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="验证栈序列">
-<meta name="twitter:description" content="说明算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都是 pop 出来了。解析1、解析2、解析3 步骤 用一个辅助栈(stack)模拟pushed队列的入栈操作 栈是先进后出的，由此 popped[头] = stack[尾]如果popped按排序始终能找到">
+<meta name="twitter:description" content="说明给定 pushed 和 popped 两个序列，每个序列中的 值都不重复，只有当它们可能是在最初空栈上进行的推入 push 和弹出 pop 操作序列的结果时，返回 true；否则，返回 false 。 算法将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都">
 
 
 
@@ -347,7 +347,8 @@
       
 
       
-        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/validate-stack-sequences/" target="_blank" rel="noopener">说明</a></h3><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都是 pop 出来了。<br><a href="https://leetcode-cn.com/problems/validate-stack-sequences/solution/yan-zheng-zhan-xu-lie-by-leetcode/" target="_blank" rel="noopener">解析1</a>、<a href="https://www.cnblogs.com/MrSaver/p/12167607.html" target="_blank" rel="noopener">解析2</a>、<a href="https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/solution/li-yong-fu-zhu-zhan-yan-zheng-zhan-xu-lie-by-lucky/" target="_blank" rel="noopener">解析3</a></p>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/validate-stack-sequences/" target="_blank" rel="noopener">说明</a></h3><p>给定 pushed 和 popped 两个序列，每个序列中的 值都不重复，只有当它们可能是在最初空栈上进行的推入 push 和弹出 pop 操作序列的结果时，返回 true；否则，返回 false 。</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>将 pushed 队列中的每个数都 push 到栈中，同时检查这个数是不是 popped 序列中下一个要 pop 的值，如果是就把它 pop 出来。最后，检查不是所有的该 pop 出来的值都是 pop 出来了。<br><a href="https://leetcode-cn.com/problems/validate-stack-sequences/solution/yan-zheng-zhan-xu-lie-by-leetcode/" target="_blank" rel="noopener">解析1</a>、<a href="https://www.cnblogs.com/MrSaver/p/12167607.html" target="_blank" rel="noopener">解析2</a>、<a href="https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/solution/li-yong-fu-zhu-zhan-yan-zheng-zhan-xu-lie-by-lucky/" target="_blank" rel="noopener">解析3</a><br><a id="more"></a></p>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
 <li>用一个辅助栈(stack)模拟pushed队列的入栈操作</li>
 <li>栈是先进后出的，由此 popped[头] = stack[尾]<br>如果popped按排序始终能找到符合popped[头] = stack[尾]，则将元素分别从stack[尾]、popped[头]出列</li>
@@ -397,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/11/Promise-allSettled/" rel="prev" title="Promise.allSettled方法">
-                Promise.allSettled方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/" rel="prev" title="把数组排成最小的数">
+                把数组排成最小的数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -478,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">128</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
