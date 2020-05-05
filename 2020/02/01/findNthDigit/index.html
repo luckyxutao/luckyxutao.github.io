@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
+<meta name="description" content="说明在无限的整数序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …中找到第 n 个数字。第11个数字在序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... 里是0，它是10的一部分。">
 <meta name="keywords" content="题,leetcode,栈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="把数组排成最小的数">
-<meta property="og:url" content="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/index.html">
+<meta property="og:title" content="数字序列中某一位的数字">
+<meta property="og:url" content="http://yoursite.com/2020/02/01/findNthDigit/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
+<meta property="og:description" content="说明在无限的整数序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …中找到第 n 个数字。第11个数字在序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... 里是0，它是10的一部分。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-04T03:45:45.391Z">
+<meta property="og:updated_time" content="2020-05-05T06:02:51.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="把数组排成最小的数">
-<meta name="twitter:description" content="说明输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。">
+<meta name="twitter:title" content="数字序列中某一位的数字">
+<meta name="twitter:description" content="说明在无限的整数序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …中找到第 n 个数字。第11个数字在序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... 里是0，它是10的一部分。">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/">
+  <link rel="canonical" href="http://yoursite.com/2020/02/01/findNthDigit/">
 
 
 
 
 
-  <title>把数组排成最小的数 | 志当存高远，望尽天涯路</title>
+  <title>数字序列中某一位的数字 | 志当存高远，望尽天涯路</title>
   
 
 
@@ -258,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/findNthDigit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="331502715@qq.com">
@@ -275,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">把数组排成最小的数</h1>
+          <h1 class="post-title" itemprop="name headline">数字序列中某一位的数字</h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T11:32:41+08:00">
-                2020-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T12:57:16+08:00">
+                2020-02-01
               </time>
             
 
@@ -347,13 +347,31 @@
       
 
       
-        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/" target="_blank" rel="noopener">说明</a></h3><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</p>
-<a id="more"></a>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>此题求拼接起来的 “最小数字” ，本质上是一个排序问题，只不过比较的是连续后的字符串值。</p>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/nth-digit/" target="_blank" rel="noopener">说明</a></h3><p>在无限的整数序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …中找到第 n 个数字。<br><code>第11个数字在序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... 里是0，它是10的一部分。</code><br><a id="more"></a></p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><a href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-javascrip/" target="_blank" rel="noopener">解析</a>、<a href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/" target="_blank" rel="noopener">解析2</a></p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+<li>找到targetNum的位数(不是n的位数)</li>
+<li>找到targetNum数字</li>
+<li>确认n在targetNum中的位置</li>
+</ol>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>以n=365为例，详细<a href="https://leetcode-cn.com/problems/nth-digit/solution/xiang-jie-zhao-gui-lu-by-z1m/" target="_blank" rel="noopener"><code>规律</code></a></p>
 <ul>
-<li><a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/mian-shi-ti-45-ba-shu-zu-pai-cheng-zui-xiao-de-s-4/" target="_blank" rel="noopener">解析1</a>、<a href="https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/kuai-su-pai-xu-shi-xian-ba-shu-zu-pai-cheng-zui-xi/" target="_blank" rel="noopener">解析2</a></li>
+<li>找targetNum位数，顺带计算targetNum所在<code>位数最小值之前的位数和</code><br>  以365targetNum是3为例，3位的最小值是100，并且能得到(1-99)的位数和是9+180=189</li>
+<li>tagetNum的位数是<code>3</code></li>
+<li><p>计算targetNum</p>
+<ul>
+<li>先得到100之后所需要位数 = (365-100之前的位数) = 365 - 189 = 176</li>
+<li>targetNum = 最小位数最小值（100-1） + Math.ceil(176/3) = 158<br><code>为什么最小值要减1，因为100本身也算数，因此需要从99开始加</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**除法做了向上取整， 以99=&gt;100为例（不必在意思数组具体数字个数和含义)</span></span><br><span class="line"><span class="comment">99 + [1,2,3],[4,5,6],[7,8,9],[10,11,12],[13,14,15],[16,17,18]</span></span><br><span class="line"><span class="comment">找第2位， Math.ceil(2/3) = 1 =&gt;2 % 3 = 2</span></span><br><span class="line"><span class="comment">   表示99 + 1 = 100, 索引 = [2-1]</span></span><br><span class="line"><span class="comment">找第9位， Math.ceil(9/3) = 3 =&gt;3 %3 = 0</span></span><br><span class="line"><span class="comment">    表示99+3=102,索引=[102最后一位] </span></span><br><span class="line"><span class="comment">找第8位，Math.ceil(8/3) = 2.666=&gt;3  8 % 3 = 2</span></span><br><span class="line"><span class="comment">    表示99+3=102 索引=[2-1]</span></span><br><span class="line"><span class="comment">找第7位，Math.ceil(7/3) = 2.33=&gt;3 7%3 = 1</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="快排实现"><a href="#快排实现" class="headerlink" title="快排实现"></a>快排实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minNumber = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    quickSort(nums,<span class="number">0</span>,nums.length<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> nums.join(<span class="string">''</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">nums,lo,hi</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(lo&gt;hi)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> i = partition(nums,lo,hi);</span><br><span class="line">    quickSort(nums,lo,i<span class="number">-1</span>);</span><br><span class="line">    quickSort(nums,i+<span class="number">1</span>,hi);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//如果a&gt;b则返回true,否则false;</span></span><br><span class="line"><span class="comment">//比较的是连接字符串的值，不是number值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x1 = a + <span class="string">''</span> + b;</span><br><span class="line">    <span class="keyword">let</span> x2 = b + <span class="string">''</span> + a;</span><br><span class="line">    <span class="comment">//比较的是字符串的是 '301' '103'</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">parseInt</span>(x1,<span class="number">10</span>) &gt; <span class="built_in">parseInt</span>(x2,<span class="number">10</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">nums,lo,hi</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = lo+<span class="number">1</span>, j = hi;</span><br><span class="line">    <span class="keyword">let</span> pivot = nums[lo];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=j)&#123;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j &amp;&amp; !(compare(nums[i],pivot)))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(i&lt;=j &amp;&amp; compare(nums[j],pivot))&#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(i&lt;=j)&#123;</span><br><span class="line">            <span class="keyword">let</span> temp = nums[i];</span><br><span class="line">            nums[i] = nums[j];</span><br><span class="line">            nums[j] = temp;</span><br><span class="line">            i++;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//把第一个元素和j交换(i已经大于j了)</span></span><br><span class="line">    nums[lo] = nums[j];</span><br><span class="line">    nums[j] = pivot;</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>确定n位在targetNum的索引</p>
+<ul>
+<li>176 % 3<br>如果是0则是该数字的最后一位，否则余数就是n在targetNum中的索引</li>
+</ul>
+</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findNthDigit = <span class="function"><span class="keyword">function</span> (<span class="params">n = <span class="number">365</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//如果 n 小于 10 ，直接返回就可以了</span></span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">10</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//1. 计算第365位所在的target有几位数(不是365的位数)</span></span><br><span class="line">    <span class="keyword">let</span> digtis = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> nextStep;<span class="comment">//为了循环完成后后退一次，拿到小于n时位数和</span></span><br><span class="line">    <span class="keyword">let</span> baseNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (sum &lt;= n) &#123;</span><br><span class="line">        <span class="comment">// 9*1 + 90*2 + 900 * 3</span></span><br><span class="line">        nextStep = <span class="built_in">Math</span>.pow(<span class="number">10</span>,digtis)*<span class="number">9</span>*(digtis+<span class="number">1</span>);</span><br><span class="line">        sum = sum + nextStep;</span><br><span class="line">        <span class="comment">//0,10,100,1000,10000</span></span><br><span class="line">        baseNum = <span class="built_in">Math</span>.pow(<span class="number">10</span>,digtis);;</span><br><span class="line">        digtis++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 循环条件结束后，是多加了一次(我们需要前一次的和)</span></span><br><span class="line">    sum = sum - nextStep;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//减去最小值（100）之前的位数，从最小值（100）开始</span></span><br><span class="line">    <span class="keyword">let</span> rest = n - sum;</span><br><span class="line">    baseNum -= <span class="number">1</span>; <span class="comment">//100也算在内，所以需要减1</span></span><br><span class="line">    <span class="comment">//2. 计算targetNum数字</span></span><br><span class="line">    <span class="keyword">let</span> targetNum = baseNum + <span class="built_in">Math</span>.ceil(rest / digtis);</span><br><span class="line">    <span class="comment">//3.通过余数得知在targetNum第几位</span></span><br><span class="line">    <span class="keyword">let</span> mod = rest % digtis;</span><br><span class="line">    <span class="comment">// //如果idx为0，则是该group最后一个数字，否则mod-1就是位置</span></span><br><span class="line">    <span class="comment">// /** 100</span></span><br><span class="line">    <span class="comment">//  * [1,2,3],[4,5,6],[7,8,9],[10,11,12],[13,14,15],[16,17,18]</span></span><br><span class="line">    <span class="comment">//  * 9/3 = 3 =&gt;3 %3 = 0</span></span><br><span class="line">    <span class="comment">//  * 8/3 = 2.666=&gt;3  8 % 3 = 2</span></span><br><span class="line">    <span class="comment">//  * 7/3 = 2.33=&gt;3 7%3 = 1</span></span><br><span class="line">    <span class="comment">// */</span></span><br><span class="line">    targetNum = targetNum + <span class="string">''</span></span><br><span class="line">    <span class="keyword">if</span> (mod === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> targetNum[targetNum.length - <span class="number">1</span>]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> targetNum[mod - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -387,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/05/validate-stack-sequences/" rel="next" title="验证栈序列">
-                <i class="fa fa-chevron-left"></i> 验证栈序列
+              <a href="/2020/01/22/leetcode-construct-a-binary-tree/" rel="next" title="基于中序与(后序|前序)遍历重建二叉树">
+                <i class="fa fa-chevron-left"></i> 基于中序与(后序|前序)遍历重建二叉树
               </a>
             
           </div>
@@ -397,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/04/11/Promise-allSettled/" rel="prev" title="Promise.allSettled方法">
-                Promise.allSettled方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/01/react-new/" rel="prev" title="react核心概念梳理">
+                react核心概念梳理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -533,7 +551,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快排实现"><span class="nav-number">3.</span> <span class="nav-text">快排实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-number">3.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">4.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li></ol></div>
             
 
           </div>
