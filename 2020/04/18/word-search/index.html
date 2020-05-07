@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="题,leetcode,回溯,">
+  <meta name="keywords" content="leetcode,题,回溯,">
 
 
 
@@ -85,7 +85,7 @@
 
 
 <meta name="description" content="说明给定一个二维网格和一个单词，找出该单词是否存在于网格中。单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。">
-<meta name="keywords" content="题,leetcode,回溯">
+<meta name="keywords" content="leetcode,题,回溯">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单词搜索">
 <meta property="og:url" content="http://yoursite.com/2020/04/18/word-search/index.html">
@@ -93,7 +93,7 @@
 <meta property="og:description" content="说明给定一个二维网格和一个单词，找出该单词是否存在于网格中。单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YeHinJ.gif">
-<meta property="og:updated_time" content="2020-05-07T10:48:56.648Z">
+<meta property="og:updated_time" content="2020-05-07T11:01:18.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单词搜索">
 <meta name="twitter:description" content="说明给定一个二维网格和一个单词，找出该单词是否存在于网格中。单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。">
@@ -352,6 +352,7 @@
         <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/word-search/" target="_blank" rel="noopener">说明</a></h3><p>给定一个二维网格和一个单词，找出该单词是否存在于网格中。<br>单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。<br><a id="more"></a></p>
 <h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><a href="https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/solution/hui-su-fa-dan-ci-sou-suo-by-luckyxutao/" target="_blank" rel="noopener">解析</a>、<a href="https://leetcode-cn.com/problems/word-search/solution/zai-er-wei-ping-mian-shang-shi-yong-hui-su-fa-pyth/" target="_blank" rel="noopener">解析2</a>、<a href="https://leetcode-cn.com/problems/word-search/solution/tu-jie-di-gui-shen-du-you-xian-sou-suo-by-z1m/" target="_blank" rel="noopener">解析3</a></p>
 <h3 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h3><p>1、偏移量数组在二维平面内是经常使用的，可以把它的设置当做一个技巧，并且在这个问题中，偏移量数组内的 4 个偏移的顺序无关紧要；<br>说明：类似使用这个技巧的问题还有：「力扣」第 130 题：被围绕的区域、「力扣」第 200 题：岛屿数量。<br>2、对于这种搜索算法，我认为理解 DFS 和状态重置并不难，代码编写也相对固定，难在代码的编写和细节的处理，建议多次编写，自己多总结多思考，把自己遇到的坑记下。<br><img src="https://s1.ax1x.com/2020/05/07/YeHinJ.gif" alt></p>
+<h3 id="相似题目"><a href="#相似题目" class="headerlink" title="相似题目"></a>相似题目</h3><p><a href="/2020/04/09/ju-zhen-zhong-de-lu-jing-lcof/">机器人的运动范围</a></p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;character[][]&#125;</span> <span class="variable">board</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">word</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> exist = <span class="function"><span class="keyword">function</span> (<span class="params">board, word</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> row = board[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; row.length; j++) &#123;</span><br><span class="line">            <span class="comment">//暴力法，从左到右层次查找，找到开始比较的字母位置，len要重置</span></span><br><span class="line">            <span class="keyword">if</span> (dfsHelper(board, word, i, j, <span class="number">0</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//len表示已经成功比较了多少位</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfsHelper</span>(<span class="params">board, word, i, j, len</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果比较过的长度大于或等于word的长度，则说明匹配成功</span></span><br><span class="line">    <span class="keyword">if</span> (len &gt;= word.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否越界(向左，向上可能为0，向右、向下可能超过数组长度)</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= board.length || j &gt;= board[<span class="number">0</span>].length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果不等于当前字符表示此路不通</span></span><br><span class="line">    <span class="keyword">if</span> (word.charAt(len) !== board[i][j]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//先缓存下当前值，并将当前值改为任意个数(不为字母)</span></span><br><span class="line">    <span class="keyword">let</span> temp = board[i][j];</span><br><span class="line">    <span class="comment">//向下搜索前，将用过的变量(board[i][j])随意改个值，以保证不被使用</span></span><br><span class="line">    board[i][j] = <span class="string">'0'</span>;</span><br><span class="line">    <span class="comment">//这4个顺序不重要，</span></span><br><span class="line">    <span class="keyword">let</span> flag = dfsHelper(board, word, i, j + <span class="number">1</span>, len + <span class="number">1</span>) <span class="comment">//向右搜索</span></span><br><span class="line">        || dfsHelper(board, word, i + <span class="number">1</span>, j, len + <span class="number">1</span>) <span class="comment">//向下搜索</span></span><br><span class="line">        || dfsHelper(board, word, i, j - <span class="number">1</span>, len + <span class="number">1</span>) <span class="comment">//向左搜索</span></span><br><span class="line">        || dfsHelper(board, word, i - <span class="number">1</span>, j, len + <span class="number">1</span>) <span class="comment">//向上搜索</span></span><br><span class="line">    <span class="comment">//回溯思想，用完要还原</span></span><br><span class="line">    board[i][j] = temp;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
@@ -369,9 +370,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/题/" rel="tag"># 题</a>
-          
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/题/" rel="tag"># 题</a>
           
             <a href="/tags/回溯/" rel="tag"># 回溯</a>
           
@@ -473,7 +474,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-count">134</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -528,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思路"><span class="nav-number">3.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思路"><span class="nav-number">3.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相似题目"><span class="nav-number">4.</span> <span class="nav-text">相似题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li></ol></div>
             
 
           </div>
