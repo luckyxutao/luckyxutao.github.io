@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="题,leetcode,">
+  <meta name="keywords" content="leetcode,题,">
 
 
 
@@ -85,7 +85,7 @@
 
 
 <meta name="description" content="说明在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。">
-<meta name="keywords" content="题,leetcode">
+<meta name="keywords" content="leetcode,题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数组中的逆序对">
 <meta property="og:url" content="http://yoursite.com/2020/03/14/shu-zu-zhong-de-ni-xu-dui-lcof/index.html">
@@ -93,7 +93,7 @@
 <meta property="og:description" content="说明在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/07/Ye7sSO.jpg">
-<meta property="og:updated_time" content="2020-05-07T10:43:14.959Z">
+<meta property="og:updated_time" content="2020-05-08T00:24:11.736Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数组中的逆序对">
 <meta name="twitter:description" content="说明在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。">
@@ -358,9 +358,9 @@
 <ul>
 <li>升序/降序逻辑都可以</li>
 <li>相同元素不是逆序对<code>大于才是</code></li>
-<li>升序<br>以<code>右</code>边数组为基准，但是对于<code>重复</code>元素，应该消掉<code>左</code>边数组的元素</li>
+<li>升序<br>  从最小开始比较，谁的第一个元素最小就谁就是基准（不是绝对的left或right)，<code>如果遇到相同元素，则要先去掉非基准数组相同元素</code><br>以<code>右</code>边数组为基准，但是对于<code>重复</code>元素，应该消掉<code>左</code>边数组的元素</li>
 <li>降序<br>以<code>左</code>边数组为基准，但是对于<code>重复</code>元素，应该消掉<code>右</code>边数组元素<br>如：[3，2，1]，[3，1]<br><img src="https://s1.ax1x.com/2020/05/07/Ye7sSO.jpg" alt></li>
-<li><p>降序逻辑实现</p>
+<li><p>降序逻辑实现<br>  从最大开始比较，谁的第一个元素最大就谁就是基准（不是绝对的left或right)，<code>如果遇到相同元素，则要先去掉非基准数组相同元素</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reversePairs = <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> sumObj = &#123;<span class="attr">count</span>:<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">const</span> newArr = helper(num, <span class="number">0</span>, num.length - <span class="number">1</span>,sumObj);</span><br><span class="line">    <span class="keyword">return</span> sumObj.count;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">helper</span>(<span class="params">num, lo, hi,sumObj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lo &gt;= hi) &#123;</span><br><span class="line">        <span class="keyword">return</span> [num[lo]]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> mid = lo + <span class="built_in">Math</span>.floor((hi - lo) / <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">let</span> leftSorted = helper(num, lo, mid,sumObj);</span><br><span class="line">    <span class="keyword">let</span> rightSorted = helper(num, mid + <span class="number">1</span>, hi,sumObj);</span><br><span class="line">    <span class="keyword">return</span> merge(leftSorted, rightSorted,sumObj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//[1,8],[2,9]</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span>(<span class="params">aNum, bNum,sumObj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">while</span> (aNum.length &amp;&amp; bNum.length) &#123;</span><br><span class="line">        <span class="comment">//这里决定了用哪个（比较的是第一个元素）</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="keyword">if</span>(aNum[<span class="number">0</span>] &gt; bNum[<span class="number">0</span>])&#123;</span><br><span class="line">            sumObj.count = sumObj.count + bNum.length;</span><br><span class="line">            res.push(aNum.shift());</span><br><span class="line">        <span class="comment">//等于的不算逆对，只有大于的才算</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(aNum[<span class="number">0</span>] === bNum[<span class="number">0</span>])&#123;</span><br><span class="line">            res.push(bNum.shift());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(bNum.shift());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> aNum.length &gt; <span class="number">0</span> ? res.concat(aNum) : res.concat(bNum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>升序逻辑实现</p>
@@ -385,9 +385,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/题/" rel="tag"># 题</a>
-          
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/题/" rel="tag"># 题</a>
           
         </div>
       
