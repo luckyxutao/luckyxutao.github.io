@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="位操作基础异或操作基础">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-02T04:12:05.465Z">
+<meta property="og:updated_time" content="2020-05-26T09:13:12.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="位操作基础">
 <meta name="twitter:description" content="位操作基础异或操作基础">
@@ -359,7 +359,9 @@
 <h3 id="异或运算符优先级"><a href="#异或运算符优先级" class="headerlink" title="异或运算符优先级"></a>异或运算符优先级</h3><ul>
 <li>位操作符是<code>低于</code>比较运算符(===)的，因此(a &amp;b ) === c</li>
 </ul>
+<h3 id="二进制转10进制"><a href="#二进制转10进制" class="headerlink" title="二进制转10进制"></a>二进制转10进制</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'01010'</span></span><br><span class="line"><span class="keyword">let</span> mask = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i&lt;str.length)&#123;</span><br><span class="line">    <span class="keyword">let</span> cur = str.charAt(i);</span><br><span class="line">    <span class="keyword">if</span>(cur === <span class="string">'1'</span>)&#123;</span><br><span class="line">        num = num + mask;</span><br><span class="line">    &#125;</span><br><span class="line">    mask&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">    i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="左移"><a href="#左移" class="headerlink" title="左移"></a>左移</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> h = <span class="number">1</span>; <span class="comment">//000001-&gt;1</span></span><br><span class="line">h&lt;&lt;=<span class="number">1</span>;     <span class="comment">//000010-&gt;2</span></span><br><span class="line">h&lt;&lt;=<span class="number">1</span>;     <span class="comment">//000100-&gt;4</span></span><br></pre></td></tr></table></figure>
+<h3 id="测试number二进制中某位是否是1"><a href="#测试number二进制中某位是否是1" class="headerlink" title="测试number二进制中某位是否是1"></a>测试number二进制中某位是否是1</h3><p>number与1(1),2(2),8(3),16(4),32(5)按位与，为0则该位是0，否则是1</p>
 <h3 id="两个number某个二进位是否相等"><a href="#两个number某个二进位是否相等" class="headerlink" title="两个number某个二进位是否相等"></a>两个number某个二进位是否相等</h3><p>直接与001,010,100,1000,10000…进行<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_AND" target="_blank" rel="noopener"><code>按位与</code></a>操作即可，因为其它位全是0，只看1所在位</p>
 <ul>
 <li>以比较第1位为例<br>2和5的二进制第1位是相同的，2和4的第一位不相同<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>(<span class="number">001</span>)</span><br><span class="line"><span class="number">2</span> &amp; <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="number">010</span>-&gt;<span class="number">2</span></span><br><span class="line"><span class="number">001</span>-&gt;<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">5</span> &amp; <span class="number">1</span> = <span class="number">1</span></span><br><span class="line"><span class="number">101</span>-&gt;<span class="number">5</span></span><br><span class="line"><span class="number">001</span>-&gt;<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span> &amp; <span class="number">1</span> = <span class="number">0</span></span><br><span class="line"><span class="number">100</span>-&gt;<span class="number">4</span></span><br><span class="line"><span class="number">001</span>-&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -493,7 +495,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">141</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -515,7 +517,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">109</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -548,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#位操作基础"><span class="nav-number">1.</span> <span class="nav-text">位操作基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异或运算符优先级"><span class="nav-number">2.</span> <span class="nav-text">异或运算符优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左移"><span class="nav-number">3.</span> <span class="nav-text">左移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个number某个二进位是否相等"><span class="nav-number">4.</span> <span class="nav-text">两个number某个二进位是否相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找到Number二进制不为0的最低位"><span class="nav-number">5.</span> <span class="nav-text">找到Number二进制不为0的最低位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只出现一次的数字"><span class="nav-number">6.</span> <span class="nav-text">只出现一次的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不用加减乘除做加法"><span class="nav-number">7.</span> <span class="nav-text">不用加减乘除做加法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中数字出现的次数"><span class="nav-number">8.</span> <span class="nav-text">数组中数字出现的次数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#位操作基础"><span class="nav-number">1.</span> <span class="nav-text">位操作基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异或运算符优先级"><span class="nav-number">2.</span> <span class="nav-text">异或运算符优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制转10进制"><span class="nav-number">3.</span> <span class="nav-text">二进制转10进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左移"><span class="nav-number">4.</span> <span class="nav-text">左移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试number二进制中某位是否是1"><span class="nav-number">5.</span> <span class="nav-text">测试number二进制中某位是否是1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个number某个二进位是否相等"><span class="nav-number">6.</span> <span class="nav-text">两个number某个二进位是否相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找到Number二进制不为0的最低位"><span class="nav-number">7.</span> <span class="nav-text">找到Number二进制不为0的最低位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只出现一次的数字"><span class="nav-number">8.</span> <span class="nav-text">只出现一次的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不用加减乘除做加法"><span class="nav-number">9.</span> <span class="nav-text">不用加减乘除做加法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中数字出现的次数"><span class="nav-number">10.</span> <span class="nav-text">数组中数字出现的次数</span></a></li></ol></div>
             
 
           </div>
