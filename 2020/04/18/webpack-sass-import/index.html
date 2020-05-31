@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="现象webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-31T05:50:32.345Z">
+<meta property="og:updated_time" content="2020-05-31T06:00:37.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack打包sass相对路径问题">
 <meta name="twitter:description" content="现象webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。">
@@ -358,7 +358,7 @@
 </li>
 </ul>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>将./styles/download/index.scss里资源路径改为 <code>以引入方(./index.scss)所在目录为基准点</code>，再使用相对的路径，看起来是很别扭<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//styles/download/index.scss</span></span><br><span class="line"><span class="attribute">background</span>:url(./assets/down_bg.png) no-repeat;</span><br></pre></td></tr></table></figure></p>
-<h3 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h3><p><a href="https://webpack.js.org/loaders/sass-loader/" target="_blank" rel="noopener">Problems with url(…)</a></p>
+<h3 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h3><p><a href="https://webpack.js.org/loaders/sass-loader/#problems-with-url" target="_blank" rel="noopener"><code>Problems with url(...)</code></a></p>
 <ol>
 <li>sass-loader及sass预处理器<code>未能正确</code>处理@import依赖里<code>相对路径</code></li>
 <li>只是机械的将依赖资源合并到当前文件，@import替换为了require</li>
