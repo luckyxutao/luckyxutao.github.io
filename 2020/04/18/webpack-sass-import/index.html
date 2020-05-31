@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="原理,loader,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="现象webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。">
+<meta name="keywords" content="原理,loader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack打包sass相对路径问题">
+<meta property="og:url" content="http://yoursite.com/2020/04/18/webpack-sass-import/index.html">
+<meta property="og:site_name" content="志当存高远，望尽天涯路">
+<meta property="og:description" content="现象webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-31T01:15:46.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack打包sass相对路径问题">
+<meta name="twitter:description" content="现象webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/18/webpack-sass-import/">
+
+
+
+
+
+  <title>webpack打包sass相对路径问题 | 志当存高远，望尽天涯路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">志当存高远，望尽天涯路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生已如此艰难，就不要再拆穿了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/18/webpack-sass-import/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="331502715@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://luckyxutao.github.io/assets/blogImg/headimg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="志当存高远，望尽天涯路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack打包sass相对路径问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-18T08:17:41+08:00">
+                2020-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>webpack打包错误，提示找不到路径所在图片，并不是未引用url-loader等情况。<br><a id="more"></a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR in ./src/index.scss</span><br><span class="line">Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):</span><br><span class="line">ModuleNotFoundError: Module not found: Error: Can't resolve '../../assets/down_bg.png' in '/Users/xutao/work/demos/2020-lcs/src'</span><br></pre></td></tr></table></figure></p>
+<h3 id="目录说明"><a href="#目录说明" class="headerlink" title="目录说明"></a>目录说明</h3><ul>
+<li>说明<ul>
+<li>./index.scss通过<code>@import</code>引入了./styles/download/index.scss</li>
+<li>./styles/download/index.scss里通过<code>相对路径</code>引用了图片</li>
+</ul>
+</li>
+<li>目录结构<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">➜  2020-lcs git:(master) ✗ tree ./src </span><br><span class="line">./src</span><br><span class="line">├── assets</span><br><span class="line">│   ├── `**down_bg.png**`</span><br><span class="line">│   ├── down_btn_adr.png</span><br><span class="line">│   ├── down_btn_ios.png</span><br><span class="line">│   ├── down_guide.png</span><br><span class="line">│   └── down_ico.png</span><br><span class="line">├── index.jsx</span><br><span class="line">├── `**index.scss**`</span><br><span class="line">├── scripts</span><br><span class="line">│   ├── pages</span><br><span class="line">│   │   ├── download</span><br><span class="line">│   │   │   └── index.jsx</span><br><span class="line">│   │   └── registration</span><br><span class="line">│   │       ├── CreateButton.jsx</span><br><span class="line">│   │       ├── EmailForm.jsx</span><br><span class="line">│   │       ├── PhoneForm.jsx</span><br><span class="line">│   │       ├── TabBar.jsx</span><br><span class="line">│   │       └── index.jsx</span><br><span class="line">│   └── utils</span><br><span class="line">│       └── responsive.js</span><br><span class="line">└── styles</span><br><span class="line">    ├── common.scss</span><br><span class="line">    ├── download</span><br><span class="line">    │   └── `**index.scss**`</span><br><span class="line">    └── registration</span><br><span class="line">        └── index.scss</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>将./styles/download/index.scss里资源路径改为 <code>以引入方(./index.scss)所在目录为基准点</code>，再使用相对的路径，看起来是很别扭<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//styles/download/index.scss</span></span><br><span class="line"><span class="attribute">background</span>:url(./assets/down_bg.png) no-repeat;</span><br></pre></td></tr></table></figure></p>
+<h3 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h3><ol>
+<li>sass-loader及sass预处理器<code>未能正确</code>处理@import依赖里<code>相对路径</code></li>
+<li>只是机械的将依赖资源合并到当前文件，@import替换为了require</li>
+<li>以上操作会导致后期webapck在处理路径时发生错位</li>
+</ol>
+<h3 id="loader处理后文件"><a href="#loader处理后文件" class="headerlink" title="loader处理后文件"></a>loader处理后文件</h3><ul>
+<li><p>打包失败的(./index.scss)<br><code>var ___CSS_LOADER_URL_IMPORT_0___ = require(&quot;../../assets/down_bg.png&quot;);</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Imports</span></span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_API_IMPORT___ = <span class="built_in">require</span>(<span class="string">"../node_modules/css-loader/dist/runtime/api.js"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_AT_RULE_IMPORT_0___ = <span class="built_in">require</span>(<span class="string">"-!../node_modules/css-loader/dist/cjs.js!antd-mobile/dist/antd-mobile.css"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_GET_URL_IMPORT___ = <span class="built_in">require</span>(<span class="string">"../node_modules/css-loader/dist/runtime/getUrl.js"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_0___ = <span class="built_in">require</span>(<span class="string">"../../assets/down_bg.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_1___ = <span class="built_in">require</span>(<span class="string">"./assets/down_btn_ios.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_2___ = <span class="built_in">require</span>(<span class="string">"./assets/down_btn_adr.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_3___ = <span class="built_in">require</span>(<span class="string">"./assets/down_guide.png"</span>);</span><br><span class="line">exports = ___CSS_LOADER_API_IMPORT___(<span class="literal">false</span>);</span><br><span class="line">exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_1___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_1___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_2___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_2___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_3___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_3___);</span><br><span class="line"><span class="comment">// Module</span></span><br><span class="line">exports.push([<span class="built_in">module</span>.id, <span class="string">"@charset \"UTF-8\";\n/* 移动端页面设计稿宽度 */\n/* 移动端页面设计稿dpr基准值 */\n/* 单位px转化为vw */\n/* 根元素大小使用 vw 单位 */\nhtml &#123;\n  /* 同时，通过Media Queries 限制根元素最大最小值 */ &#125;\n  @media screen and (max-width: 320px) &#123;\n    html &#123;\n      font-size: 64px; &#125; &#125;\n  @media screen and (min-width: 750px) &#123;\n    html &#123;\n      font-size: 150px; &#125; &#125;\n\nbody &#123;\n  max-width: 750px;\n  min-width: 320px;\n  margin: 0 auto; &#125;\n\n.page-root-download &#123;\n  font-size: 100vw;\n  background: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_0___ + <span class="string">") no-repeat;\n  height: 100vh;\n  background-size: 100%; &#125;\n  .page-root-download .logo &#123;\n    width: 100vw;\n    height: 44vw;\n    padding-top: 36.4vw;\n    display: flex;\n    justify-content: center; &#125;\n    .page-root-download .logo .pic &#123;\n      width: 33.6vw;\n      object-fit: cover; &#125;\n  .page-root-download .bottom &#123;\n    margin-top: 29.33333vw; &#125;\n    .page-root-download .bottom .row &#123;\n      display: flex;\n      justify-content: center;\n      margin-top: 6.4vw; &#125;\n    .page-root-download .bottom .btn &#123;\n      width: 84vw;\n      height: 13.6vw;\n      background: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_1___ + <span class="string">") 0 0 no-repeat;\n      background-size: 100%; &#125;\n      .page-root-download .bottom .btn-adr &#123;\n        background-image: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_2___ + <span class="string">"); &#125;\n  .page-root-download .mask &#123;\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    background: rgba(0, 0, 0, 0.7);\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0; &#125;\n    .page-root-download .mask .pic &#123;\n      position: absolute;\n      top: 12.4vw;\n      right: 11.06667vw;\n      width: 68.93333vw;\n      height: 76vw;\n      background-image: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_3___ + <span class="string">");\n      background-size: 100%; &#125;\n\n.page-root-registration &#123;\n  background-color: #1B072E;\n  height: 100vh; &#125;\n  .page-root-registration .white &#123;\n    color: #fff; &#125;\n  .page-root-registration .header &#123;\n    padding-left: 2.93333vw;\n    align-items: center;\n    display: flex;\n    color: #fff;\n    height: 11.73333vw; &#125;\n    .page-root-registration .header .left &#123;\n      font-size: 2.66667vw; &#125;\n    .page-root-registration .header .title &#123;\n      margin-left: -2.66667vw;\n      font-size: 4.8vw; &#125;\n    .page-root-registration .header .main &#123;\n      display: flex;\n      justify-content: center;\n      flex: 1; &#125;\n  .page-root-registration .tab-area .am-tabs .am-tabs-pane-wrap &#123;\n    overflow: hidden; &#125;\n  .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar &#123;\n    background-color: transparent !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab &#123;\n      color: rgba(255, 255, 255, 0.5) !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab-active &#123;\n      color: #fff !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-underline &#123;\n      border-color: #fff !important; &#125;\n  .page-root-registration .tab-area .txt-ipt &#123;\n    width: 100%;\n    height: 10.8vw;\n    color: #6F5B78;\n    font-size: 3.46667vw;\n    display: flex;\n    align-items: center; &#125;\n    .page-root-registration .tab-area .txt-ipt-sms &#123;\n      display: flex;\n      align-items: center; &#125;\n      .page-root-registration .tab-area .txt-ipt-sms input &#123;\n        flex: 1; &#125;\n      .page-root-registration .tab-area .txt-ipt-sms .button-send-sms &#123;\n        display: flex;\n        align-items: center;\n        height: 100%; &#125;\n        .page-root-registration .tab-area .txt-ipt-sms .button-send-sms .retry &#123;\n          margin-left: 0.8vw; &#125;\n    .page-root-registration .tab-area .txt-ipt input &#123;\n      height: 100%;\n      width: 100%;\n      background-color: transparent;\n      border: 0 none;\n      border-bottom: solid 1px #342146; &#125;\n    .page-root-registration .tab-area .txt-ipt-phone &#123;\n      border-bottom: solid 1px #342146; &#125;\n      .page-root-registration .tab-area .txt-ipt-phone input &#123;\n        border: 0 none;\n        border-left: solid 1px #342146;\n        margin-left: 1.33333vw;\n        padding-left: 1.33333vw; &#125;\n    .page-root-registration .tab-area .txt-ipt-country &#123;\n      border-bottom: solid 1px #342146; &#125;\n      .page-root-registration .tab-area .txt-ipt-country-button &#123;\n        display: flex;\n        align-items: center;\n        font-size: 3.46667vw;\n        color: #fff; &#125;\n  .page-root-registration .tab-area .txt-ipt:nth-last-child(1) input &#123;\n    border-bottom: 0 none; &#125;\n  .page-root-registration .tab-area .form-top &#123;\n    display: flex;\n    flex-direction: column;\n    margin: 0 4.8vw;\n    margin-top: 5.2vw;\n    padding: 0.66667vw 1.33333vw;\n    border: solid 1px #342146;\n    border-radius: 1.06667vw; &#125;\n  .page-root-registration .tab-area .form-create &#123;\n    padding: 0 4.8vw;\n    margin-top: 16vw; &#125;\n    .page-root-registration .tab-area .form-create-tip &#123;\n      margin-top: 2.8vw;\n      font-size: 2.93333vw;\n      color: #7F2FCB;\n      text-align: center; &#125;\n    .page-root-registration .tab-area .form-create-button &#123;\n      height: 10.66667vw;\n      color: #fff;\n      font-size: 4.8vw;\n      background-color: #5E1A9F;\n      display: flex;\n      align-items: center;\n      justify-content: center; &#125;\n  .page-root-registration .tab-area .form-bottom &#123;\n    padding: 0 4.8vw;\n    margin-top: 15.33333vw; &#125;\n    .page-root-registration .tab-area .form-bottom .label &#123;\n      color: #fff;\n      font-size: 2.4vw; &#125;\n    .page-root-registration .tab-area .form-bottom .txt-ipt &#123;\n      border-bottom: solid 1px #342146;\n      border-top: solid 1px #342146;\n      margin-top: 3.6vw; &#125;\n"</span>, <span class="string">""</span>]);</span><br><span class="line"><span class="comment">// Exports</span></span><br><span class="line"><span class="built_in">module</span>.exports = exports;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>正确的(./index.scss)<br><code>var ___CSS_LOADER_URL_IMPORT_0___ = require(&quot;./assets/down_bg.png&quot;);</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//./src/index.scss经过sass处理后的文件</span></span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_API_IMPORT___ = <span class="built_in">require</span>(<span class="string">"../node_modules/css-loader/dist/runtime/api.js"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_AT_RULE_IMPORT_0___ = <span class="built_in">require</span>(<span class="string">"-!../node_modules/css-loader/dist/cjs.js!antd-mobile/dist/antd-mobile.css"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_GET_URL_IMPORT___ = <span class="built_in">require</span>(<span class="string">"../node_modules/css-loader/dist/runtime/getUrl.js"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_0___ = <span class="built_in">require</span>(<span class="string">"./assets/down_bg.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_1___ = <span class="built_in">require</span>(<span class="string">"./assets/down_btn_ios.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_2___ = <span class="built_in">require</span>(<span class="string">"./assets/down_btn_adr.png"</span>);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_IMPORT_3___ = <span class="built_in">require</span>(<span class="string">"./assets/down_guide.png"</span>);</span><br><span class="line">exports = ___CSS_LOADER_API_IMPORT___(<span class="literal">false</span>);</span><br><span class="line">exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_1___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_1___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_2___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_2___);</span><br><span class="line"><span class="keyword">var</span> ___CSS_LOADER_URL_REPLACEMENT_3___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_3___);</span><br><span class="line"><span class="comment">// Module</span></span><br><span class="line">exports.push([<span class="built_in">module</span>.id, <span class="string">"@charset \"UTF-8\";\n/* 移动端页面设计稿宽度 */\n/* 移动端页面设计稿dpr基准值 */\n/* 单位px转化为vw */\n/* 根元素大小使用 vw 单位 */\nhtml &#123;\n  /* 同时，通过Media Queries 限制根元素最大最小值 */ &#125;\n  @media screen and (max-width: 320px) &#123;\n    html &#123;\n      font-size: 64px; &#125; &#125;\n  @media screen and (min-width: 750px) &#123;\n    html &#123;\n      font-size: 150px; &#125; &#125;\n\nbody &#123;\n  max-width: 750px;\n  min-width: 320px;\n  margin: 0 auto; &#125;\n\n.page-root-download &#123;\n  font-size: 100vw;\n  background: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_0___ + <span class="string">") no-repeat;\n  height: 100vh;\n  background-size: 100%; &#125;\n  .page-root-download .logo &#123;\n    width: 100vw;\n    height: 44vw;\n    padding-top: 36.4vw;\n    display: flex;\n    justify-content: center; &#125;\n    .page-root-download .logo .pic &#123;\n      width: 33.6vw;\n      object-fit: cover; &#125;\n  .page-root-download .bottom &#123;\n    margin-top: 29.33333vw; &#125;\n    .page-root-download .bottom .row &#123;\n      display: flex;\n      justify-content: center;\n      margin-top: 6.4vw; &#125;\n    .page-root-download .bottom .btn &#123;\n      width: 84vw;\n      height: 13.6vw;\n      background: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_1___ + <span class="string">") 0 0 no-repeat;\n      background-size: 100%; &#125;\n      .page-root-download .bottom .btn-adr &#123;\n        background-image: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_2___ + <span class="string">"); &#125;\n  .page-root-download .mask &#123;\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    background: rgba(0, 0, 0, 0.7);\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0; &#125;\n    .page-root-download .mask .pic &#123;\n      position: absolute;\n      top: 12.4vw;\n      right: 11.06667vw;\n      width: 68.93333vw;\n      height: 76vw;\n      background-image: url("</span> + ___CSS_LOADER_URL_REPLACEMENT_3___ + <span class="string">");\n      background-size: 100%; &#125;\n\n.page-root-registration &#123;\n  background-color: #1B072E;\n  height: 100vh; &#125;\n  .page-root-registration .white &#123;\n    color: #fff; &#125;\n  .page-root-registration .header &#123;\n    padding-left: 2.93333vw;\n    align-items: center;\n    display: flex;\n    color: #fff;\n    height: 11.73333vw; &#125;\n    .page-root-registration .header .left &#123;\n      font-size: 2.66667vw; &#125;\n    .page-root-registration .header .title &#123;\n      margin-left: -2.66667vw;\n      font-size: 4.8vw; &#125;\n    .page-root-registration .header .main &#123;\n      display: flex;\n      justify-content: center;\n      flex: 1; &#125;\n  .page-root-registration .tab-area .am-tabs .am-tabs-pane-wrap &#123;\n    overflow: hidden; &#125;\n  .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar &#123;\n    background-color: transparent !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab &#123;\n      color: rgba(255, 255, 255, 0.5) !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-tab-active &#123;\n      color: #fff !important; &#125;\n    .page-root-registration .tab-area .am-tabs-tab-bar-wrap .am-tabs-default-bar-underline &#123;\n      border-color: #fff !important; &#125;\n  .page-root-registration .tab-area .txt-ipt &#123;\n    width: 100%;\n    height: 10.8vw;\n    color: #6F5B78;\n    font-size: 3.46667vw;\n    display: flex;\n    align-items: center; &#125;\n    .page-root-registration .tab-area .txt-ipt-sms &#123;\n      display: flex;\n      align-items: center; &#125;\n      .page-root-registration .tab-area .txt-ipt-sms input &#123;\n        flex: 1; &#125;\n      .page-root-registration .tab-area .txt-ipt-sms .button-send-sms &#123;\n        display: flex;\n        align-items: center;\n        height: 100%; &#125;\n        .page-root-registration .tab-area .txt-ipt-sms .button-send-sms .retry &#123;\n          margin-left: 0.8vw; &#125;\n    .page-root-registration .tab-area .txt-ipt input &#123;\n      height: 100%;\n      width: 100%;\n      background-color: transparent;\n      border: 0 none;\n      border-bottom: solid 1px #342146; &#125;\n    .page-root-registration .tab-area .txt-ipt-phone &#123;\n      border-bottom: solid 1px #342146; &#125;\n      .page-root-registration .tab-area .txt-ipt-phone input &#123;\n        border: 0 none;\n        border-left: solid 1px #342146;\n        margin-left: 1.33333vw;\n        padding-left: 1.33333vw; &#125;\n    .page-root-registration .tab-area .txt-ipt-country &#123;\n      border-bottom: solid 1px #342146; &#125;\n      .page-root-registration .tab-area .txt-ipt-country-button &#123;\n        display: flex;\n        align-items: center;\n        font-size: 3.46667vw;\n        color: #fff; &#125;\n  .page-root-registration .tab-area .txt-ipt:nth-last-child(1) input &#123;\n    border-bottom: 0 none; &#125;\n  .page-root-registration .tab-area .form-top &#123;\n    display: flex;\n    flex-direction: column;\n    margin: 0 4.8vw;\n    margin-top: 5.2vw;\n    padding: 0.66667vw 1.33333vw;\n    border: solid 1px #342146;\n    border-radius: 1.06667vw; &#125;\n  .page-root-registration .tab-area .form-create &#123;\n    padding: 0 4.8vw;\n    margin-top: 16vw; &#125;\n    .page-root-registration .tab-area .form-create-tip &#123;\n      margin-top: 2.8vw;\n      font-size: 2.93333vw;\n      color: #7F2FCB;\n      text-align: center; &#125;\n    .page-root-registration .tab-area .form-create-button &#123;\n      height: 10.66667vw;\n      color: #fff;\n      font-size: 4.8vw;\n      background-color: #5E1A9F;\n      display: flex;\n      align-items: center;\n      justify-content: center; &#125;\n  .page-root-registration .tab-area .form-bottom &#123;\n    padding: 0 4.8vw;\n    margin-top: 15.33333vw; &#125;\n    .page-root-registration .tab-area .form-bottom .label &#123;\n      color: #fff;\n      font-size: 2.4vw; &#125;\n    .page-root-registration .tab-area .form-bottom .txt-ipt &#123;\n      border-bottom: solid 1px #342146;\n      border-top: solid 1px #342146;\n      margin-top: 3.6vw; &#125;\n"</span>, <span class="string">""</span>]);</span><br><span class="line"><span class="comment">// Exports</span></span><br><span class="line"><span class="built_in">module</span>.exports = exports;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原理/" rel="tag"># 原理</a>
+          
+            <a href="/tags/loader/" rel="tag"># loader</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/18/large-upload/" rel="next" title="实现一个大文件上传和断点续传">
+                <i class="fa fa-chevron-left"></i> 实现一个大文件上传和断点续传
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/18/word-search/" rel="prev" title="单词搜索">
+                单词搜索 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://luckyxutao.github.io/assets/blogImg/headimg.jpg" alt="331502715@qq.com">
+            
+              <p class="site-author-name" itemprop="name">331502715@qq.com</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">147</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#现象"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录说明"><span class="nav-number">2.</span> <span class="nav-text">目录说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根本原因"><span class="nav-number">4.</span> <span class="nav-text">根本原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loader处理后文件"><span class="nav-number">5.</span> <span class="nav-text">loader处理后文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">331502715@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
