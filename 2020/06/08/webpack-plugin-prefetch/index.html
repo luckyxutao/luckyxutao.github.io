@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。 浏览器通常会在空闲状态取得这些资源，在取得资源之后搁在HTTP缓存以便于实现将来的请求。如果有多个‘预请求提示’则会在浏览器空闲时排队执行。当浏览器离开空闲状态时正好在‘预请求’资源，那么浏览器会取消任何正在进行中的请求（同时会将部分响应数据放置在缓存中，而在Header中继续使用Content-Range字段">
+<meta name="description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。">
 <meta name="keywords" content="原理,loader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack-prefetch插件">
 <meta property="og:url" content="http://yoursite.com/2020/06/08/webpack-plugin-prefetch/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。 浏览器通常会在空闲状态取得这些资源，在取得资源之后搁在HTTP缓存以便于实现将来的请求。如果有多个‘预请求提示’则会在浏览器空闲时排队执行。当浏览器离开空闲状态时正好在‘预请求’资源，那么浏览器会取消任何正在进行中的请求（同时会将部分响应数据放置在缓存中，而在Header中继续使用Content-Range字段">
+<meta property="og:description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-08T22:56:52.256Z">
+<meta property="og:updated_time" content="2020-06-08T23:21:25.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack-prefetch插件">
-<meta name="twitter:description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。 浏览器通常会在空闲状态取得这些资源，在取得资源之后搁在HTTP缓存以便于实现将来的请求。如果有多个‘预请求提示’则会在浏览器空闲时排队执行。当浏览器离开空闲状态时正好在‘预请求’资源，那么浏览器会取消任何正在进行中的请求（同时会将部分响应数据放置在缓存中，而在Header中继续使用Content-Range字段">
+<meta name="twitter:description" content="什么是prefetch？这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。">
 
 
 
@@ -347,10 +347,9 @@
       
 
       
-        <h3 id="什么是prefetch？"><a href="#什么是prefetch？" class="headerlink" title="什么是prefetch？"></a>什么是prefetch？</h3><p>这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。</p>
+        <h3 id="什么是prefetch？"><a href="#什么是prefetch？" class="headerlink" title="什么是prefetch？"></a>什么是prefetch？</h3><p>这种“资源提示” 告诉浏览器这是一个在未来可能使用到的资源。<br><a id="more"></a></p>
 <p>浏览器通常会在空闲状态取得这些资源，在取得资源之后搁在HTTP缓存以便于实现将来的请求。如果有多个‘预请求提示’则会在浏览器空闲时排队执行。当浏览器离开空闲状态时正好在‘预请求’资源，那么浏览器会取消任何正在进行中的请求（同时会将部分响应数据放置在缓存中，而在Header中继续使用Content-Range字段 ）并停止处理‘预请求’队列。</p>
 <p>总之:在闲置时获取资源<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"prefetch"</span> <span class="attr">href</span>=<span class="string">"style.css"</span> <span class="attr">as</span>=<span class="string">"style"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"prefetch"</span> <span class="attr">href</span>=<span class="string">"main.js"</span> <span class="attr">as</span>=<span class="string">"script"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
 <h3 id="webpack动态导入"><a href="#webpack动态导入" class="headerlink" title="webpack动态导入"></a>webpack动态导入</h3><p>我们知道webpack动态导入语法会产生代码分割，产生一个异步加载的bundle.js。懒加载可以用来优化首屏加载首屏渲染时间，但是懒加载的缺点也很明显，初次加载会有一定延迟。</p>
 <h3 id="webpack中的prefetch"><a href="#webpack中的prefetch" class="headerlink" title="webpack中的prefetch"></a>webpack中的prefetch</h3><p>通过动态导入的魔法注释可以指定一个模块prefetch，生成的chunks中可以区分是否prefetch</p>
 <ul>
@@ -490,7 +489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-count">151</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

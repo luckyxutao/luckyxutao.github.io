@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="如何加快构建速度 通过externals配置来提取常用库 利用DllPlugin和DllReferencePlugin预编译资源模块  HappyPack它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。 缩小范围 module.rules exclude、include   resolve.modules  默认是当前目录下的node_modules，而依赖库却在项目根目">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-08T13:56:32.880Z">
+<meta property="og:updated_time" content="2020-06-08T23:02:53.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack常用优化">
 <meta name="twitter:description" content="如何加快构建速度 通过externals配置来提取常用库 利用DllPlugin和DllReferencePlugin预编译资源模块  HappyPack它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。 缩小范围 module.rules exclude、include   resolve.modules  默认是当前目录下的node_modules，而依赖库却在项目根目">
@@ -367,10 +367,9 @@
 <li><a href="https://github.com/wayou/wayou.github.io/issues/40" target="_blank" rel="noopener">splitChunks</a></li>
 <li>代码分割</li>
 <li>contentHash长缓存</li>
-<li>prefetch</li>
-<li>css/js压缩</li>
-<li>文件放入cdn</li>
-<li>postcss去重，去掉无用css</li>
+<li>prefetch/preload</li>
+<li>css/js压缩，postcss去重，去掉无用css</li>
+<li>文件放入cdn(多域名)</li>
 <li>tree-shaking<ul>
 <li>es6模块导入，静态，不能是require</li>
 </ul>
@@ -588,7 +587,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-count">151</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
