@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="题,leetcode,哈希表,">
+  <meta name="keywords" content="题,leetcode,">
 
 
 
@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="1. 两数之和 说明12给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。">
-<meta name="keywords" content="题,leetcode,哈希表">
+<meta name="description" content="说明1234567891011编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：每行的元素从左到右升序排列。每列的元素从上到下升序排列。[  [1,   4,  7, 11, 15],  [2,   5,  8, 12, 19],  [3,   6,  9, 16, 22],  [10, 13, 14, 17, 24],  [18, 21,">
+<meta name="keywords" content="题,leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两数之和问题">
-<meta property="og:url" content="http://yoursite.com/2020/06/03/two-sum/index.html">
+<meta property="og:title" content="240. 搜索二维矩阵 II">
+<meta property="og:url" content="http://yoursite.com/2020/05/10/search-a-2d-matrix-ii/index.html">
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
-<meta property="og:description" content="1. 两数之和 说明12给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。">
+<meta property="og:description" content="说明1234567891011编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：每行的元素从左到右升序排列。每列的元素从上到下升序排列。[  [1,   4,  7, 11, 15],  [2,   5,  8, 12, 19],  [3,   6,  9, 16, 22],  [10, 13, 14, 17, 24],  [18, 21,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-09T23:55:23.230Z">
+<meta property="og:updated_time" content="2020-06-10T04:22:05.334Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="两数之和问题">
-<meta name="twitter:description" content="1. 两数之和 说明12给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。">
+<meta name="twitter:title" content="240. 搜索二维矩阵 II">
+<meta name="twitter:description" content="说明1234567891011编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：每行的元素从左到右升序排列。每列的元素从上到下升序排列。[  [1,   4,  7, 11, 15],  [2,   5,  8, 12, 19],  [3,   6,  9, 16, 22],  [10, 13, 14, 17, 24],  [18, 21,">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/03/two-sum/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/10/search-a-2d-matrix-ii/">
 
 
 
 
 
-  <title>两数之和问题 | 志当存高远，望尽天涯路</title>
+  <title>240. 搜索二维矩阵 II | 志当存高远，望尽天涯路</title>
   
 
 
@@ -258,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/03/two-sum/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/10/search-a-2d-matrix-ii/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="331502715@qq.com">
@@ -275,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">两数之和问题</h1>
+          <h1 class="post-title" itemprop="name headline">240. 搜索二维矩阵 II</h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-03T07:46:56+08:00">
-                2020-06-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-10T12:11:56+08:00">
+                2020-05-10
               </time>
             
 
@@ -347,28 +347,16 @@
       
 
       
-        <h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a><a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">1. 两数之和</a></h3><ul>
-<li>说明<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</span><br><span class="line">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a><a href="https://leetcode-cn.com/problems/search-a-2d-matrix-ii/" target="_blank" rel="noopener">说明</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：</span><br><span class="line">每行的元素从左到右升序排列。</span><br><span class="line">每列的元素从上到下升序排列。</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">  [1,   4,  7, 11, 15],</span><br><span class="line">  [2,   5,  8, 12, 19],</span><br><span class="line">  [3,   6,  9, 16, 22],</span><br><span class="line">  [10, 13, 14, 17, 24],</span><br><span class="line">  [18, 21, 23, 26, 30]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<ul>
-<li><p>思路<br>由于未明显说明是一个有序数组，因此我们可借助一个map来记录每个digit的索引，一旦找到和为sum则返回</p>
-</li>
-<li><p>实现</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对无序数组，可以使用map来记录索引</span></span><br><span class="line"><span class="keyword">var</span> twoSum2 = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!nums||!nums.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">        <span class="keyword">let</span> digit = nums[i];</span><br><span class="line">        <span class="keyword">if</span>(map.has(target-digit))&#123;</span><br><span class="line">            <span class="keyword">return</span> [nums[map.get(target-digit)],nums[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        map.set(digit,i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 作者：luckyxutao</span></span><br><span class="line"><span class="comment">// 链接：https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/solution/mian-shi-ti-57-he-wei-sde-liang-ge-shu-zi-by-lucky/</span></span><br><span class="line"><span class="comment">// 来源：力扣（LeetCode）</span></span><br><span class="line"><span class="comment">// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="面试题57-和为s的两个数字"><a href="#面试题57-和为s的两个数字" class="headerlink" title="面试题57. 和为s的两个数字"></a><a href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/" target="_blank" rel="noopener">面试题57. 和为s的两个数字</a></h3><ul>
-<li><p>说明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。</span><br><span class="line">如果有多对数字的和等于s，则输出任意一对即可。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>思路<br>数组是一个有序的数组，则优先考虑<code>左右双指针</code>思想</p>
-</li>
-<li>实现<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span>(<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!nums||!nums.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="comment">//左右指针，因为是有序的</span></span><br><span class="line">    <span class="keyword">let</span> lo = <span class="number">0</span>, hi = nums.length<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(lo&lt;hi)&#123;</span><br><span class="line">        <span class="keyword">let</span> sum = nums[lo] + nums[hi];</span><br><span class="line">        <span class="comment">//减右边,因为小的已经是最小了，不能再小了，大的左移可以</span></span><br><span class="line">        <span class="keyword">if</span>(sum &gt;target)&#123;</span><br><span class="line">            hi = hi<span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( sum &lt; target)&#123;<span class="comment">//右边已经最最大了，只能左边向右移</span></span><br><span class="line">            lo = lo+<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( sum === target)&#123;</span><br><span class="line">            <span class="keyword">return</span> [nums[lo],nums[hi]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li>从左下角或右上角搜索可以少搜索一个方向，以右上角开始为例（15）： target= 5</li>
+<li>15比5大，则15所有这一列所有元素都比5大，因此15所在的列就不用搜索了，肯定不会在这列的， column–；</li>
+<li>4比5小，则向下搜索</li>
+</ol>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>迭代/递归 最差都是O(n)</p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findNumberIn2DArray = <span class="function"><span class="keyword">function</span>(<span class="params">matrix, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!matrix||!matrix.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> rowLen = matrix.length, columnLen = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>, j = columnLen<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;rowLen &amp;&amp; j &gt;=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix[i][j] === target)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j]&gt;target)&#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &lt; target)&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findNumberIn2DArray2 = <span class="function"><span class="keyword">function</span>(<span class="params">matrix, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!matrix||!matrix.length)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> rowLen = matrix.length, columnLen = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="comment">//右上角[0][4]</span></span><br><span class="line">    <span class="keyword">return</span> findHelper(matrix,target,<span class="number">0</span>,columnLen<span class="number">-1</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findHelper</span>(<span class="params">matrix,target,i,j</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&gt;=matrix.length || j&gt;= matrix[<span class="number">0</span>].length || i&lt;<span class="number">0</span> || j&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(matrix[i][j]=== target)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &gt; target)&#123;</span><br><span class="line">        <span class="keyword">return</span> findHelper(matrix,target,i,j<span class="number">-1</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(matrix[i][j] &lt; target)&#123;</span><br><span class="line">        <span class="keyword">return</span> findHelper(matrix,target,i+<span class="number">1</span>,j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -389,8 +377,6 @@
           
             <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
-            <a href="/tags/哈希表/" rel="tag"># 哈希表</a>
-          
         </div>
       
 
@@ -402,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/23/webpack-hmr/" rel="next" title="webpack热更新">
-                <i class="fa fa-chevron-left"></i> webpack热更新
+              <a href="/2020/05/09/file-upload/" rel="next" title="大文件上传-断点续传(client)">
+                <i class="fa fa-chevron-left"></i> 大文件上传-断点续传(client)
               </a>
             
           </div>
@@ -412,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/06/06/permutation-in-string/" rel="prev" title="567. 字符串的排列">
-                567. 字符串的排列 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/05/23/webpack-hmr/" rel="prev" title="webpack热更新">
+                webpack热更新 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -548,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-两数之和"><span class="nav-number">1.</span> <span class="nav-text">1. 两数之和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题57-和为s的两个数字"><span class="nav-number">2.</span> <span class="nav-text">面试题57. 和为s的两个数字</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度"><span class="nav-number">3.</span> <span class="nav-text">复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代"><span class="nav-number">4.</span> <span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现"><span class="nav-number">5.</span> <span class="nav-text">递归实现</span></a></li></ol></div>
             
 
           </div>
