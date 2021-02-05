@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="志当存高远，望尽天涯路">
 <meta property="og:description" content="D3最短路径 Dijkstra on node-link diagram">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-05T12:48:40.402Z">
+<meta property="og:updated_time" content="2021-02-05T12:52:08.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="d3-最短路径问题">
 <meta name="twitter:description" content="D3最短路径 Dijkstra on node-link diagram">
@@ -372,6 +372,9 @@
 <li>通过前驱列表，回溯查找某个节点最短路径nodeIds</li>
 <li>根据节点路径nodeIds求得linkIds</li>
 </ul>
+<h3 id="D3渲染路径"><a href="#D3渲染路径" class="headerlink" title="D3渲染路径"></a>D3渲染路径</h3><ul>
+<li>渲染节点或边时，判断当前id是否在shortest_path_ids数据里</li>
+</ul>
 
       
     </div>
@@ -546,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#D3最短路径"><span class="nav-number">1.</span> <span class="nav-text">D3最短路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dijistra算法"><span class="nav-number">2.</span> <span class="nav-text">dijistra算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多条相同路径-基于dijkstra"><span class="nav-number">3.</span> <span class="nav-text">多条相同路径(基于dijkstra)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求路径策略"><span class="nav-number">4.</span> <span class="nav-text">求路径策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#D3最短路径"><span class="nav-number">1.</span> <span class="nav-text">D3最短路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dijistra算法"><span class="nav-number">2.</span> <span class="nav-text">dijistra算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多条相同路径-基于dijkstra"><span class="nav-number">3.</span> <span class="nav-text">多条相同路径(基于dijkstra)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求路径策略"><span class="nav-number">4.</span> <span class="nav-text">求路径策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D3渲染路径"><span class="nav-number">5.</span> <span class="nav-text">D3渲染路径</span></a></li></ol></div>
             
 
           </div>
